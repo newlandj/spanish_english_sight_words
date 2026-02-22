@@ -1,0 +1,692 @@
+[
+  {
+    "id": 0,
+    "en": "ball",
+    "es": "pelota"
+  },
+  {
+    "id": 1,
+    "en": "both",
+    "es": "ambos"
+  },
+  {
+    "id": 2,
+    "en": "for",
+    "es": "para"
+  },
+  {
+    "id": 3,
+    "en": "blue",
+    "es": "azul"
+  },
+  {
+    "id": 4,
+    "en": "even",
+    "es": "aún"
+  },
+  {
+    "id": 5,
+    "en": "help",
+    "es": "ayudar"
+  },
+  {
+    "id": 6,
+    "en": "put",
+    "es": "poner"
+  },
+  {
+    "id": 7,
+    "en": "why",
+    "es": "por qué"
+  },
+  {
+    "id": 8,
+    "en": "could",
+    "es": "puedo"
+  },
+  {
+    "id": 9,
+    "en": "there",
+    "es": "allí"
+  },
+  {
+    "id": 10,
+    "en": "yellow",
+    "es": "amarillo"
+  },
+  {
+    "id": 11,
+    "en": "find",
+    "es": "encontrar"
+  },
+  {
+    "id": 12,
+    "en": "funny",
+    "es": "divertido"
+  },
+  {
+    "id": 13,
+    "en": "how",
+    "es": "cómo"
+  },
+  {
+    "id": 14,
+    "en": "one",
+    "es": "un / una"
+  },
+  {
+    "id": 15,
+    "en": "green",
+    "es": "verde"
+  },
+  {
+    "id": 16,
+    "en": "little",
+    "es": "pequeño / pequeña"
+  },
+  {
+    "id": 17,
+    "en": "or",
+    "es": "o"
+  },
+  {
+    "id": 18,
+    "en": "see",
+    "es": "ver"
+  },
+  {
+    "id": 19,
+    "en": "boy",
+    "es": "niño"
+  },
+  {
+    "id": 20,
+    "en": "girl",
+    "es": "niña"
+  },
+  {
+    "id": 21,
+    "en": "sounds",
+    "es": "suena"
+  },
+  {
+    "id": 22,
+    "en": "by",
+    "es": "por"
+  },
+  {
+    "id": 23,
+    "en": "he",
+    "es": "él"
+  },
+  {
+    "id": 24,
+    "en": "here",
+    "es": "aquí"
+  },
+  {
+    "id": 25,
+    "en": "small",
+    "es": "pequeño / pequeña"
+  },
+  {
+    "id": 26,
+    "en": "were",
+    "es": "estar"
+  },
+  {
+    "id": 27,
+    "en": "she",
+    "es": "ella"
+  },
+  {
+    "id": 28,
+    "en": "want",
+    "es": "querer"
+  },
+  {
+    "id": 29,
+    "en": "what",
+    "es": "qué"
+  },
+  {
+    "id": 30,
+    "en": "another",
+    "es": "otro"
+  },
+  {
+    "id": 31,
+    "en": "into",
+    "es": "en"
+  },
+  {
+    "id": 32,
+    "en": "now",
+    "es": "ahora"
+  },
+  {
+    "id": 33,
+    "en": "done",
+    "es": "hecho"
+  },
+  {
+    "id": 34,
+    "en": "move",
+    "es": "mover"
+  },
+  {
+    "id": 35,
+    "en": "show",
+    "es": "mostrar"
+  },
+  {
+    "id": 36,
+    "en": "too",
+    "es": "muy / también"
+  },
+  {
+    "id": 37,
+    "en": "year",
+    "es": "año"
+  },
+  {
+    "id": 38,
+    "en": "all",
+    "es": "todos"
+  },
+  {
+    "id": 39,
+    "en": "water",
+    "es": "agua"
+  },
+  {
+    "id": 40,
+    "en": "your",
+    "es": "su / sus"
+  },
+  {
+    "id": 41,
+    "en": "any",
+    "es": "alguno"
+  },
+  {
+    "id": 42,
+    "en": "goes",
+    "es": "va / ir"
+  },
+  {
+    "id": 43,
+    "en": "number",
+    "es": "número"
+  },
+  {
+    "id": 44,
+    "en": "right",
+    "es": "derecha"
+  },
+  {
+    "id": 45,
+    "en": "new",
+    "es": "nuevo"
+  },
+  {
+    "id": 46,
+    "en": "other",
+    "es": "otros"
+  },
+  {
+    "id": 47,
+    "en": "says",
+    "es": "dice"
+  },
+  {
+    "id": 48,
+    "en": "understands",
+    "es": "entender"
+  },
+  {
+    "id": 49,
+    "en": "because",
+    "es": "porque"
+  },
+  {
+    "id": 50,
+    "en": "family",
+    "es": "familia"
+  },
+  {
+    "id": 51,
+    "en": "work",
+    "es": "trabajo"
+  },
+  {
+    "id": 52,
+    "en": "cold",
+    "es": "frío"
+  },
+  {
+    "id": 53,
+    "en": "friends",
+    "es": "amigos"
+  },
+  {
+    "id": 54,
+    "en": "have",
+    "es": "tener"
+  },
+  {
+    "id": 55,
+    "en": "off",
+    "es": "apagado / apagada"
+  },
+  {
+    "id": 56,
+    "en": "school",
+    "es": "escuela"
+  },
+  {
+    "id": 57,
+    "en": "know",
+    "es": "saber"
+  },
+  {
+    "id": 58,
+    "en": "picture",
+    "es": "foto"
+  },
+  {
+    "id": 59,
+    "en": "took",
+    "es": "tomar"
+  },
+  {
+    "id": 60,
+    "en": "change",
+    "es": "cambiar"
+  },
+  {
+    "id": 61,
+    "en": "fall",
+    "es": "caer"
+  },
+  {
+    "id": 62,
+    "en": "look",
+    "es": "mirar"
+  },
+  {
+    "id": 63,
+    "en": "cheer",
+    "es": "animar"
+  },
+  {
+    "id": 64,
+    "en": "five",
+    "es": "cinco"
+  },
+  {
+    "id": 65,
+    "en": "open",
+    "es": "abrir"
+  },
+  {
+    "id": 66,
+    "en": "should",
+    "es": "deber"
+  },
+  {
+    "id": 67,
+    "en": "won",
+    "es": "ganar"
+  },
+  {
+    "id": 68,
+    "en": "almost",
+    "es": "casi"
+  },
+  {
+    "id": 69,
+    "en": "their",
+    "es": "su / sus"
+  },
+  {
+    "id": 70,
+    "en": "yes",
+    "es": "sí"
+  },
+  {
+    "id": 71,
+    "en": "buy",
+    "es": "comprar"
+  },
+  {
+    "id": 72,
+    "en": "food",
+    "es": "comida"
+  },
+  {
+    "id": 73,
+    "en": "pull",
+    "es": "jalar"
+  },
+  {
+    "id": 74,
+    "en": "sky",
+    "es": "cielo"
+  },
+  {
+    "id": 75,
+    "en": "out",
+    "es": "fuera"
+  },
+  {
+    "id": 76,
+    "en": "saw",
+    "es": "vi"
+  },
+  {
+    "id": 77,
+    "en": "straight",
+    "es": "recta"
+  },
+  {
+    "id": 78,
+    "en": "under",
+    "es": "bajo"
+  },
+  {
+    "id": 79,
+    "en": "baby",
+    "es": "bebé"
+  },
+  {
+    "id": 80,
+    "en": "eight",
+    "es": "ocho"
+  },
+  {
+    "id": 81,
+    "en": "wash",
+    "es": "lavar"
+  },
+  {
+    "id": 82,
+    "en": "early",
+    "es": "temprana"
+  },
+  {
+    "id": 83,
+    "en": "isnt",
+    "es": "no es"
+  },
+  {
+    "id": 84,
+    "en": "learn",
+    "es": "aprender"
+  },
+  {
+    "id": 85,
+    "en": "start",
+    "es": "comenzar"
+  },
+  {
+    "id": 86,
+    "en": "try",
+    "es": "probar"
+  },
+  {
+    "id": 87,
+    "en": "seven",
+    "es": "siete"
+  },
+  {
+    "id": 88,
+    "en": "these",
+    "es": "estos / estas"
+  },
+  {
+    "id": 89,
+    "en": "walk",
+    "es": "cominar"
+  },
+  {
+    "id": 90,
+    "en": "bird",
+    "es": "pájaro"
+  },
+  {
+    "id": 91,
+    "en": "field",
+    "es": "campo"
+  },
+  {
+    "id": 92,
+    "en": "grow",
+    "es": "crecer"
+  },
+  {
+    "id": 93,
+    "en": "far",
+    "es": "lejos"
+  },
+  {
+    "id": 94,
+    "en": "flower",
+    "es": "flor"
+  },
+  {
+    "id": 95,
+    "en": "leaves",
+    "es": "hojas"
+  },
+  {
+    "id": 96,
+    "en": "light",
+    "es": "luz"
+  },
+  {
+    "id": 97,
+    "en": "ready",
+    "es": "listo"
+  },
+  {
+    "id": 98,
+    "en": "about",
+    "es": "acerca de"
+  },
+  {
+    "id": 99,
+    "en": "orange",
+    "es": "naranja"
+  },
+  {
+    "id": 100,
+    "en": "until",
+    "es": "hasta"
+  },
+  {
+    "id": 101,
+    "en": "around",
+    "es": "en torno a"
+  },
+  {
+    "id": 102,
+    "en": "good",
+    "es": "bien"
+  },
+  {
+    "id": 103,
+    "en": "idea",
+    "es": "idea"
+  },
+  {
+    "id": 104,
+    "en": "part",
+    "es": "parte"
+  },
+  {
+    "id": 105,
+    "en": "great",
+    "es": "gran"
+  },
+  {
+    "id": 106,
+    "en": "often",
+    "es": "a menudo"
+  },
+  {
+    "id": 107,
+    "en": "second",
+    "es": "segundo"
+  },
+  {
+    "id": 108,
+    "en": "two",
+    "es": "dos"
+  },
+  {
+    "id": 109,
+    "en": "also",
+    "es": "también"
+  },
+  {
+    "id": 110,
+    "en": "begin",
+    "es": "comenzar"
+  },
+  {
+    "id": 111,
+    "en": "world",
+    "es": "mundo"
+  },
+  {
+    "id": 112,
+    "en": "apart",
+    "es": "aparte"
+  },
+  {
+    "id": 113,
+    "en": "either",
+    "es": "o bien"
+  },
+  {
+    "id": 114,
+    "en": "hundred",
+    "es": "cien"
+  },
+  {
+    "id": 115,
+    "en": "places",
+    "es": "lugares"
+  },
+  {
+    "id": 116,
+    "en": "which",
+    "es": "que"
+  },
+  {
+    "id": 117,
+    "en": "over",
+    "es": "en"
+  },
+  {
+    "id": 118,
+    "en": "those",
+    "es": "esos"
+  },
+  {
+    "id": 119,
+    "en": "without",
+    "es": "sin"
+  },
+  {
+    "id": 120,
+    "en": "better",
+    "es": "mejor"
+  },
+  {
+    "id": 121,
+    "en": "long",
+    "es": "largo / larga"
+  },
+  {
+    "id": 122,
+    "en": "only",
+    "es": "sólo"
+  },
+  {
+    "id": 123,
+    "en": "group",
+    "es": "grupo"
+  },
+  {
+    "id": 124,
+    "en": "more",
+    "es": "más"
+  },
+  {
+    "id": 125,
+    "en": "our",
+    "es": "nuestra / nuestro"
+  },
+  {
+    "id": 126,
+    "en": "started",
+    "es": "comenzó"
+  },
+  {
+    "id": 127,
+    "en": "who",
+    "es": "quien"
+  },
+  {
+    "id": 128,
+    "en": "after",
+    "es": "después de"
+  },
+  {
+    "id": 129,
+    "en": "three",
+    "es": "tres"
+  },
+  {
+    "id": 130,
+    "en": "wont",
+    "es": "no lo hará"
+  },
+  {
+    "id": 131,
+    "en": "before",
+    "es": "antes de"
+  },
+  {
+    "id": 132,
+    "en": "every",
+    "es": "cada"
+  },
+  {
+    "id": 133,
+    "en": "first",
+    "es": "primero"
+  },
+  {
+    "id": 134,
+    "en": "hurt",
+    "es": "herido"
+  },
+  {
+    "id": 135,
+    "en": "few",
+    "es": "algunos"
+  },
+  {
+    "id": 136,
+    "en": "hear",
+    "es": "oír"
+  },
+  {
+    "id": 137,
+    "en": "old",
+    "es": "antiguo"
+  }
+]
