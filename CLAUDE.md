@@ -13,8 +13,9 @@ A progressive web app (PWA) for learning Spanish/English sight words, built with
   - `words.json` — Sight words data
   - `manifest.json` — PWA manifest
   - `sw.js` — Service worker
-- `extract_words.py` — Script to extract words from the reference PDF
-- `sight_words_reference.pdf` — Source PDF for sight words
+- `archive/` — Legacy files, no longer in use
+  - `extract_words.py` — Original script to extract words from the reference PDF
+  - `sight_words_reference.pdf` — Source PDF that seeded the initial word list
 
 ## GitHub Interactions
 
@@ -39,8 +40,4 @@ gh repo view
 
 The app is a static site — no build step required. Edit files in `docs/` directly.
 
-To update the word list, run:
-
-```bash
-python extract_words.py
-```
+The word list (`docs/words.json`) has evolved beyond the original PDF source and is now maintained directly. The legacy `extract_words.py` script and `sight_words_reference.pdf` have been moved to `archive/` and are no longer used.
