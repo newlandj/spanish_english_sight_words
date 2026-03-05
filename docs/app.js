@@ -39,6 +39,13 @@ function isStruggling(wordId, direction, progress) {
   return wrong > correct;
 }
 
+function isUnseen(wordId, direction, progress) {
+  const entry = (progress[wordId] || {})[direction];
+  if (!entry) return true;
+  const [correct, wrong] = entry;
+  return correct === wrong;
+}
+
 function getStats() {
   const progress = loadProgress();
   let mastered = 0, struggling = 0, unseen = 0;
@@ -69,24 +76,23 @@ function shuffle(arr) {
 
 /**
  * Returns array of { word, direction } objects.
- * mode: "all" | "struggling"
+ * mode: "all" | "struggling" | "new"
  * direction: "en_es" | "es_en" | "mixed"
  */
 function buildDeck(mode, direction) {
   const progress = loadProgress();
   const dirs = direction === "mixed" ? null : [direction];
-  const resolvedDirs = (word) => dirs || shuffle(["en_es", "es_en"]).slice(0, 1);
 
   let cards = [];
   for (const word of words) {
     const wordDirs = dirs || ["en_es", "es_en"];
     for (const dir of wordDirs) {
       if (mode === "struggling" && !isStruggling(word.id, dir, progress)) continue;
+      if (mode === "new" && !isUnseen(word.id, dir, progress)) continue;
       cards.push({ word, direction: dir });
     }
   }
 
-  if (mode === "struggling" && cards.length === 0) return [];
   return shuffle(cards);
 }
 
@@ -98,6 +104,7 @@ function renderHome() {
   const { mastered, struggling, unseen } = getStats();
   const total = mastered + struggling + unseen;
   const hasStruggling = struggling > 0;
+  const hasUnseen = unseen > 0;
 
   app.innerHTML = `
     <div class="home">
@@ -123,11 +130,15 @@ function renderHome() {
       <div class="option-group" id="mode-group">
         <label>
           <input type="radio" name="mode" value="all" checked />
-          All ${words.length} words
+          All words
         </label>
         <label>
           <input type="radio" name="mode" value="struggling" ${!hasStruggling ? "disabled" : ""} />
           Struggling words only ${struggling > 0 ? `(${struggling})` : "(none yet)"}
+        </label>
+        <label>
+          <input type="radio" name="mode" value="new" ${!hasUnseen ? "disabled" : ""} />
+          New words only ${unseen > 0 ? `(${unseen})` : "(none yet)"}
         </label>
       </div>
 
@@ -157,7 +168,8 @@ function renderHome() {
     const dir = document.querySelector('input[name="dir"]:checked').value;
     const deck = buildDeck(mode, dir);
     if (deck.length === 0) {
-      alert("No struggling words yet! Play 'All words' first.");
+      if (mode === "struggling") alert("No struggling words yet! Play 'All words' first.");
+      else if (mode === "new") alert("No new words left! You've seen them all.");
       return;
     }
     renderCardScreen(deck);
@@ -195,6 +207,16 @@ function renderCardScreen(deck) {
     const backCardClass = isEnEs ? "" : "es-en-back";
     const pct = Math.round((index / deck.length) * 100);
 
+    // Conjugation table: only show on the Spanish-answer side (en→es)
+    const hasConjugations = isEnEs && word.conjugations;
+    const conjugationTable = hasConjugations
+      ? `<div class="conjugation-table">
+          ${Object.entries(word.conjugations).map(([pronoun, form]) =>
+            `<div class="conj-row"><span class="conj-pronoun">${pronoun}</span><span class="conj-form">${form}</span></div>`
+          ).join("")}
+        </div>`
+      : "";
+
     flipped = false;
 
     app.innerHTML = `
@@ -208,16 +230,24 @@ function renderCardScreen(deck) {
           <div class="progress-bar-wrap">
             <div class="progress-bar-fill" style="width:${pct}%"></div>
           </div>
-          <div class="card-flip-container" id="card-flip">
+          <div class="card-flip-container ${hasConjugations ? "has-conjugations" : ""}" id="card-flip">
             <div class="card-inner">
               <div class="card-face card-front ${frontCardClass}">
                 <span class="lang-label">${promptLang}</span>
                 <span class="word">${prompt}</span>
                 <span class="tap-hint">tap to reveal</span>
               </div>
-              <div class="card-face card-back ${backCardClass}">
-                <span class="lang-label">${answerLang}</span>
-                <span class="word">${answer}</span>
+              <div class="card-face card-back ${backCardClass} ${hasConjugations ? "with-conjugations" : ""}">
+                ${hasConjugations ? `
+                  <span class="lang-label">${answerLang}</span>
+                  <div class="verb-block">
+                    <span class="word word-verb">${answer}</span>
+                    ${conjugationTable}
+                  </div>
+                ` : `
+                  <span class="lang-label">${answerLang}</span>
+                  <span class="word">${answer}</span>
+                `}
               </div>
             </div>
           </div>
