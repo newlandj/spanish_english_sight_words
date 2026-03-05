@@ -272,6 +272,10 @@ html, body {
   -webkit-tap-highlight-color: transparent;
 }
 
+.card-flip-container.has-conjugations {
+  height: 320px;
+}
+
 .card-inner {
   width: 100%;
   height: 100%;
@@ -315,6 +319,11 @@ html, body {
   line-height: 1.1;
 }
 
+/* Slightly smaller word on verb cards to leave room for conjugation table */
+.card-face .word.word-verb {
+  font-size: clamp(1.6rem, 7vw, 2.5rem);
+}
+
 .card-face .tap-hint {
   font-size: 0.8rem;
   opacity: 0.45;
@@ -334,6 +343,51 @@ html, body {
   background: var(--green);
   color: white;
   transform: rotateY(180deg);
+}
+
+.card-back.with-conjugations {
+  justify-content: center;
+  gap: 0;
+  padding: 16px 32px;
+}
+
+/* Verb block: groups word + table so they center together */
+.verb-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Conjugation table */
+.conjugation-table {
+  margin-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+}
+
+.conj-row {
+  display: flex;
+  align-items: baseline;
+  font-size: 0.82rem;
+  gap: 0;
+}
+
+.conj-pronoun {
+  opacity: 0.7;
+  font-weight: 500;
+  width: 80px;
+  text-align: right;
+  padding-right: 12px;
+}
+
+.conj-form {
+  font-weight: 700;
+  text-align: left;
 }
 
 .card-back.es-en-back {
