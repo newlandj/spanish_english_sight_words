@@ -267,10 +267,11 @@ function renderCardScreen(deck) {
     `;
 
     document.getElementById("card-flip").addEventListener("click", () => {
-      if (flipped) return;
-      flipped = true;
-      document.getElementById("card-flip").classList.add("flipped");
-      document.getElementById("answer-btns").classList.add("visible");
+      document.getElementById("card-flip").classList.toggle("flipped");
+      if (!flipped) {
+        flipped = true;
+        document.getElementById("answer-btns").classList.add("visible");
+      }
     });
 
     document.getElementById("btn-got").addEventListener("click", () => {
