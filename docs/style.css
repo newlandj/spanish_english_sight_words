@@ -267,13 +267,13 @@ html, body {
 .card-flip-container {
   width: 100%;
   max-width: 480px;
-  min-height: 280px;
+  height: 320px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
 .card-flip-container.has-conjugations {
-  min-height: 320px;
+  height: 380px;
 }
 
 .card-inner {
