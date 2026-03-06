@@ -92,7 +92,6 @@
   { "id": 43, "en": "number", "es": "número", "sentence_en": "Seven is my favorite **number**.", "sentence_es": "Siete es mi **número** favorito." },
   { "id": 44, "en": "right", "es": "derecha", "sentence_en": "Turn **right** at the corner.", "sentence_es": "Dobla a la **derecha** en la esquina." },
   { "id": 45, "en": "new", "es": "nuevo", "sentence_en": "I have a **new** backpack.", "sentence_es": "Yo tengo una mochila **nueva**." },
-  { "id": 46, "en": "other", "es": "otros", "sentence_en": "The **other** book is red.", "sentence_es": "El **otro** libro es rojo." },
   {
     "id": 47, "en": "to say", "es": "decir",
     "sentence_en": "I **say** hello to my teacher.", "sentence_es": "Yo le **digo** hola a mi maestra.",
