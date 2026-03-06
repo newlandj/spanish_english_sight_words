@@ -267,13 +267,13 @@ html, body {
 .card-flip-container {
   width: 100%;
   max-width: 480px;
-  height: 280px;
+  min-height: 280px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
 .card-flip-container.has-conjugations {
-  height: 320px;
+  min-height: 320px;
 }
 
 .card-inner {
@@ -322,6 +322,20 @@ html, body {
 /* Slightly smaller word on verb cards to leave room for conjugation table */
 .card-face .word.word-verb {
   font-size: clamp(1.6rem, 7vw, 2.5rem);
+}
+
+.card-sentence {
+  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.7;
+  text-align: center;
+  padding: 0 20px;
+  line-height: 1.4;
+}
+
+.card-sentence strong {
+  font-style: normal;
+  font-weight: 800;
 }
 
 .card-face .tap-hint {
