@@ -1,246 +1,281 @@
 [
-  { "id": 0, "en": "ball", "es": "pelota" },
-  { "id": 1, "en": "both", "es": "ambos" },
-  { "id": 2, "en": "for", "es": "para" },
-  { "id": 3, "en": "blue", "es": "azul" },
-  { "id": 4, "en": "even", "es": "incluso" },
+  { "id": 0, "en": "ball", "es": "pelota", "sentence_en": "I kick the **ball**.", "sentence_es": "Yo pateo la **pelota**." },
+  { "id": 1, "en": "both", "es": "ambos", "sentence_en": "**Both** dogs are cute.", "sentence_es": "**Ambos** perros son lindos." },
+  { "id": 2, "en": "for", "es": "para", "sentence_en": "This gift is **for** you.", "sentence_es": "Este regalo es **para** ti." },
+  { "id": 3, "en": "blue", "es": "azul", "sentence_en": "The sky is **blue**.", "sentence_es": "El cielo es **azul**." },
+  { "id": 4, "en": "even", "es": "incluso", "sentence_en": "**Even** I can do it!", "sentence_es": "¡**Incluso** yo puedo hacerlo!" },
   {
     "id": 5, "en": "to help", "es": "ayudar",
+    "sentence_en": "I **help** my mom.", "sentence_es": "Yo **ayudo** a mi mamá.",
     "conjugations": { "yo": "ayudo", "tú": "ayudas", "él/ella": "ayuda", "nosotros": "ayudamos", "ustedes": "ayudan" }
   },
   {
     "id": 6, "en": "to put", "es": "poner",
+    "sentence_en": "You **put** the book on the table.", "sentence_es": "Tú **pones** el libro en la mesa.",
     "conjugations": { "yo": "pongo", "tú": "pones", "él/ella": "pone", "nosotros": "ponemos", "ustedes": "ponen" }
   },
-  { "id": 7, "en": "why", "es": "por qué" },
+  { "id": 7, "en": "why", "es": "por qué", "sentence_en": "**Why** is the sky blue?", "sentence_es": "¿**Por qué** el cielo es azul?" },
   {
     "id": 8, "en": "to be able to", "es": "poder",
+    "sentence_en": "He **can** run fast.", "sentence_es": "Él **puede** correr rápido.",
     "conjugations": { "yo": "puedo", "tú": "puedes", "él/ella": "puede", "nosotros": "podemos", "ustedes": "pueden" }
   },
-  { "id": 9, "en": "there", "es": "allí" },
-  { "id": 10, "en": "yellow", "es": "amarillo" },
+  { "id": 9, "en": "there", "es": "allí", "sentence_en": "The cat is **there**.", "sentence_es": "El gato está **allí**." },
+  { "id": 10, "en": "yellow", "es": "amarillo", "sentence_en": "The sun is **yellow**.", "sentence_es": "El sol es **amarillo**." },
   {
     "id": 11, "en": "to find", "es": "encontrar",
+    "sentence_en": "I **find** my backpack.", "sentence_es": "Yo **encuentro** mi mochila.",
     "conjugations": { "yo": "encuentro", "tú": "encuentras", "él/ella": "encuentra", "nosotros": "encontramos", "ustedes": "encuentran" }
   },
-  { "id": 12, "en": "funny", "es": "divertido" },
-  { "id": 13, "en": "how", "es": "cómo" },
-  { "id": 14, "en": "one", "es": "un / una" },
-  { "id": 15, "en": "green", "es": "verde" },
-  { "id": 16, "en": "little / small", "es": "pequeño / pequeña" },
-  { "id": 17, "en": "or", "es": "o" },
+  { "id": 12, "en": "funny", "es": "divertido", "sentence_en": "That joke is **funny**.", "sentence_es": "Ese chiste es **divertido**." },
+  { "id": 13, "en": "how", "es": "cómo", "sentence_en": "**How** are you today?", "sentence_es": "¿**Cómo** estás hoy?" },
+  { "id": 14, "en": "one", "es": "un / una", "sentence_en": "I have **one** apple.", "sentence_es": "Yo tengo **una** manzana." },
+  { "id": 15, "en": "green", "es": "verde", "sentence_en": "The frog is **green**.", "sentence_es": "La rana es **verde**." },
+  { "id": 16, "en": "little / small", "es": "pequeño / pequeña", "sentence_en": "The kitten is **little**.", "sentence_es": "El gatito es **pequeño**." },
+  { "id": 17, "en": "or", "es": "o", "sentence_en": "Do you want milk **or** juice?", "sentence_es": "¿Quieres leche **o** jugo?" },
   {
     "id": 18, "en": "to see", "es": "ver",
+    "sentence_en": "You **see** the bird in the tree.", "sentence_es": "Tú **ves** el pájaro en el árbol.",
     "conjugations": { "yo": "veo", "tú": "ves", "él/ella": "ve", "nosotros": "vemos", "ustedes": "ven" }
   },
-  { "id": 19, "en": "boy", "es": "niño" },
-  { "id": 20, "en": "girl", "es": "niña" },
+  { "id": 19, "en": "boy", "es": "niño", "sentence_en": "The **boy** runs fast.", "sentence_es": "El **niño** corre rápido." },
+  { "id": 20, "en": "girl", "es": "niña", "sentence_en": "The **girl** has a flower.", "sentence_es": "La **niña** tiene una flor." },
   {
     "id": 21, "en": "to sound", "es": "sonar",
+    "sentence_en": "The bell **sounds** loud.", "sentence_es": "La campana **suena** fuerte.",
     "conjugations": { "yo": "sueno", "tú": "suenas", "él/ella": "suena", "nosotros": "sonamos", "ustedes": "suenan" }
   },
-  { "id": 22, "en": "by", "es": "por" },
-  { "id": 23, "en": "he", "es": "él" },
-  { "id": 24, "en": "here", "es": "aquí" },
+  { "id": 22, "en": "by", "es": "por", "sentence_en": "We walk **by** the park.", "sentence_es": "Caminamos **por** el parque." },
+  { "id": 23, "en": "he", "es": "él", "sentence_en": "**He** is my best friend.", "sentence_es": "**Él** es mi mejor amigo." },
+  { "id": 24, "en": "here", "es": "aquí", "sentence_en": "Come **here**, please.", "sentence_es": "Ven **aquí**, por favor." },
   {
     "id": 26, "en": "to be", "es": "ser / estar",
+    "sentence_en": "I **am** a student.", "sentence_es": "Yo **soy** estudiante.",
     "conjugations": { "yo": "soy", "tú": "eres", "él/ella": "es", "nosotros": "somos", "ustedes": "son" }
   },
-  { "id": 27, "en": "she", "es": "ella" },
+  { "id": 27, "en": "she", "es": "ella", "sentence_en": "**She** is my sister.", "sentence_es": "**Ella** es mi hermana." },
   {
     "id": 28, "en": "to want", "es": "querer",
+    "sentence_en": "You **want** an ice cream.", "sentence_es": "Tú **quieres** un helado.",
     "conjugations": { "yo": "quiero", "tú": "quieres", "él/ella": "quiere", "nosotros": "queremos", "ustedes": "quieren" }
   },
-  { "id": 29, "en": "what", "es": "qué" },
-  { "id": 30, "en": "another", "es": "otro" },
-  { "id": 31, "en": "into", "es": "en" },
-  { "id": 32, "en": "now", "es": "ahora" },
+  { "id": 29, "en": "what", "es": "qué", "sentence_en": "**What** do you see?", "sentence_es": "¿**Qué** ves?" },
+  { "id": 30, "en": "another", "es": "otro", "sentence_en": "I want **another** cookie.", "sentence_es": "Quiero **otra** galleta." },
+  { "id": 31, "en": "into", "es": "en", "sentence_en": "The cat jumps **into** the box.", "sentence_es": "El gato salta **en** la caja." },
+  { "id": 32, "en": "now", "es": "ahora", "sentence_en": "Let's go **now**!", "sentence_es": "¡Vamos **ahora**!" },
   {
     "id": 33, "en": "to do", "es": "hacer",
+    "sentence_en": "I **do** my homework.", "sentence_es": "Yo **hago** mi tarea.",
     "conjugations": { "yo": "hago", "tú": "haces", "él/ella": "hace", "nosotros": "hacemos", "ustedes": "hacen" }
   },
   {
     "id": 34, "en": "to move", "es": "mover",
+    "sentence_en": "She **moves** the chair.", "sentence_es": "Ella **mueve** la silla.",
     "conjugations": { "yo": "muevo", "tú": "mueves", "él/ella": "mueve", "nosotros": "movemos", "ustedes": "mueven" }
   },
   {
     "id": 35, "en": "to show", "es": "mostrar",
+    "sentence_en": "You **show** your drawing.", "sentence_es": "Tú **muestras** tu dibujo.",
     "conjugations": { "yo": "muestro", "tú": "muestras", "él/ella": "muestra", "nosotros": "mostramos", "ustedes": "muestran" }
   },
-  { "id": 36, "en": "too", "es": "muy / también" },
-  { "id": 37, "en": "year", "es": "año" },
-  { "id": 38, "en": "all", "es": "todos" },
-  { "id": 39, "en": "water", "es": "agua" },
-  { "id": 40, "en": "your", "es": "tu (informal) / su (formal)" },
-  { "id": 41, "en": "any", "es": "alguno" },
+  { "id": 36, "en": "too", "es": "muy / también", "sentence_en": "I want to go, **too**!", "sentence_es": "¡Yo **también** quiero ir!" },
+  { "id": 37, "en": "year", "es": "año", "sentence_en": "This **year** I am in first grade.", "sentence_es": "Este **año** estoy en primer grado." },
+  { "id": 38, "en": "all", "es": "todos", "sentence_en": "**All** my friends are here.", "sentence_es": "**Todos** mis amigos están aquí." },
+  { "id": 39, "en": "water", "es": "agua", "sentence_en": "I drink **water** every day.", "sentence_es": "Yo bebo **agua** todos los días." },
+  { "id": 40, "en": "your", "es": "tu (informal) / su (formal)", "sentence_en": "This is **your** book.", "sentence_es": "Este es **tu** libro." },
+  { "id": 41, "en": "any", "es": "alguno", "sentence_en": "Do you have **any** questions?", "sentence_es": "¿Tienes **alguna** pregunta?" },
   {
     "id": 42, "en": "to go", "es": "ir",
+    "sentence_en": "She **goes** to school.", "sentence_es": "Ella **va** a la escuela.",
     "conjugations": { "yo": "voy", "tú": "vas", "él/ella": "va", "nosotros": "vamos", "ustedes": "van" }
   },
-  { "id": 43, "en": "number", "es": "número" },
-  { "id": 44, "en": "right", "es": "derecha" },
-  { "id": 45, "en": "new", "es": "nuevo" },
-  { "id": 46, "en": "other", "es": "otros" },
+  { "id": 43, "en": "number", "es": "número", "sentence_en": "Seven is my favorite **number**.", "sentence_es": "Siete es mi **número** favorito." },
+  { "id": 44, "en": "right", "es": "derecha", "sentence_en": "Turn **right** at the corner.", "sentence_es": "Dobla a la **derecha** en la esquina." },
+  { "id": 45, "en": "new", "es": "nuevo", "sentence_en": "I have a **new** backpack.", "sentence_es": "Yo tengo una mochila **nueva**." },
   {
     "id": 47, "en": "to say", "es": "decir",
+    "sentence_en": "I **say** hello to my teacher.", "sentence_es": "Yo le **digo** hola a mi maestra.",
     "conjugations": { "yo": "digo", "tú": "dices", "él/ella": "dice", "nosotros": "decimos", "ustedes": "dicen" }
   },
   {
     "id": 48, "en": "to understand", "es": "entender",
+    "sentence_en": "You **understand** the lesson.", "sentence_es": "Tú **entiendes** la lección.",
     "conjugations": { "yo": "entiendo", "tú": "entiendes", "él/ella": "entiende", "nosotros": "entendemos", "ustedes": "entienden" }
   },
-  { "id": 49, "en": "because", "es": "porque" },
-  { "id": 50, "en": "family", "es": "familia" },
+  { "id": 49, "en": "because", "es": "porque", "sentence_en": "I am happy **because** it is sunny.", "sentence_es": "Estoy feliz **porque** hay sol." },
+  { "id": 50, "en": "family", "es": "familia", "sentence_en": "I love my **family**.", "sentence_es": "Yo amo a mi **familia**." },
   {
     "id": 51, "en": "to work", "es": "trabajar",
+    "sentence_en": "My dad **works** a lot.", "sentence_es": "Mi papá **trabaja** mucho.",
     "conjugations": { "yo": "trabajo", "tú": "trabajas", "él/ella": "trabaja", "nosotros": "trabajamos", "ustedes": "trabajan" }
   },
-  { "id": 52, "en": "cold", "es": "frío" },
-  { "id": 53, "en": "friends", "es": "amigos" },
+  { "id": 52, "en": "cold", "es": "frío", "sentence_en": "The water is **cold**.", "sentence_es": "El agua está **fría**." },
+  { "id": 53, "en": "friends", "es": "amigos", "sentence_en": "My **friends** play with me.", "sentence_es": "Mis **amigos** juegan conmigo." },
   {
     "id": 54, "en": "to have", "es": "tener",
+    "sentence_en": "I **have** a dog.", "sentence_es": "Yo **tengo** un perro.",
     "conjugations": { "yo": "tengo", "tú": "tienes", "él/ella": "tiene", "nosotros": "tenemos", "ustedes": "tienen" }
   },
-  { "id": 55, "en": "off", "es": "apagado / apagada" },
-  { "id": 56, "en": "school", "es": "escuela" },
+  { "id": 55, "en": "off", "es": "apagado / apagada", "sentence_en": "The light is **off**.", "sentence_es": "La luz está **apagada**." },
+  { "id": 56, "en": "school", "es": "escuela", "sentence_en": "I like **school**.", "sentence_es": "Me gusta la **escuela**." },
   {
     "id": 57, "en": "to know", "es": "saber",
+    "sentence_en": "You **know** the answer.", "sentence_es": "Tú **sabes** la respuesta.",
     "conjugations": { "yo": "sé", "tú": "sabes", "él/ella": "sabe", "nosotros": "sabemos", "ustedes": "saben" }
   },
-  { "id": 58, "en": "picture", "es": "foto" },
+  { "id": 58, "en": "picture", "es": "foto", "sentence_en": "I draw a **picture**.", "sentence_es": "Yo dibujo una **foto**." },
   {
     "id": 59, "en": "to take", "es": "tomar",
+    "sentence_en": "She **drinks** water.", "sentence_es": "Ella **toma** agua.",
     "conjugations": { "yo": "tomo", "tú": "tomas", "él/ella": "toma", "nosotros": "tomamos", "ustedes": "toman" }
   },
   {
     "id": 60, "en": "to change", "es": "cambiar",
+    "sentence_en": "I **change** my shoes.", "sentence_es": "Yo **cambio** mis zapatos.",
     "conjugations": { "yo": "cambio", "tú": "cambias", "él/ella": "cambia", "nosotros": "cambiamos", "ustedes": "cambian" }
   },
   {
     "id": 61, "en": "to fall", "es": "caer",
+    "sentence_en": "You **fall** in the snow.", "sentence_es": "Tú **caes** en la nieve.",
     "conjugations": { "yo": "caigo", "tú": "caes", "él/ella": "cae", "nosotros": "caemos", "ustedes": "caen" }
   },
   {
     "id": 62, "en": "to look", "es": "mirar",
+    "sentence_en": "He **watches** television.", "sentence_es": "Él **mira** la televisión.",
     "conjugations": { "yo": "miro", "tú": "miras", "él/ella": "mira", "nosotros": "miramos", "ustedes": "miran" }
   },
   {
     "id": 63, "en": "to cheer", "es": "animar",
+    "sentence_en": "I **cheer** for my team.", "sentence_es": "Yo **animo** a mi equipo.",
     "conjugations": { "yo": "animo", "tú": "animas", "él/ella": "anima", "nosotros": "animamos", "ustedes": "animan" }
   },
-  { "id": 64, "en": "five", "es": "cinco" },
+  { "id": 64, "en": "five", "es": "cinco", "sentence_en": "I have **five** fingers on each hand.", "sentence_es": "Tengo **cinco** dedos en cada mano." },
   {
     "id": 65, "en": "to open", "es": "abrir",
+    "sentence_en": "You **open** the door.", "sentence_es": "Tú **abres** la puerta.",
     "conjugations": { "yo": "abro", "tú": "abres", "él/ella": "abre", "nosotros": "abrimos", "ustedes": "abren" }
   },
   {
     "id": 66, "en": "to owe / should", "es": "deber",
+    "sentence_en": "She **should** eat vegetables.", "sentence_es": "Ella **debe** comer verduras.",
     "conjugations": { "yo": "debo", "tú": "debes", "él/ella": "debe", "nosotros": "debemos", "ustedes": "deben" }
   },
   {
     "id": 67, "en": "to win", "es": "ganar",
+    "sentence_en": "I **win** the game!", "sentence_es": "¡Yo **gano** el juego!",
     "conjugations": { "yo": "gano", "tú": "ganas", "él/ella": "gana", "nosotros": "ganamos", "ustedes": "ganan" }
   },
-  { "id": 68, "en": "almost", "es": "casi" },
-  { "id": 69, "en": "their", "es": "sus" },
-  { "id": 70, "en": "yes", "es": "sí" },
+  { "id": 68, "en": "almost", "es": "casi", "sentence_en": "Dinner is **almost** ready.", "sentence_es": "La cena está **casi** lista." },
+  { "id": 69, "en": "their", "es": "sus", "sentence_en": "I like **their** dog.", "sentence_es": "Me gusta **su** perro." },
+  { "id": 70, "en": "yes", "es": "sí", "sentence_en": "**Yes**, I can help you!", "sentence_es": "¡**Sí**, yo te puedo ayudar!" },
   {
     "id": 71, "en": "to buy", "es": "comprar",
+    "sentence_en": "You **buy** apples at the store.", "sentence_es": "Tú **compras** manzanas en la tienda.",
     "conjugations": { "yo": "compro", "tú": "compras", "él/ella": "compra", "nosotros": "compramos", "ustedes": "compran" }
   },
-  { "id": 72, "en": "food", "es": "comida" },
+  { "id": 72, "en": "food", "es": "comida", "sentence_en": "The **food** smells good.", "sentence_es": "La **comida** huele bien." },
   {
     "id": 73, "en": "to pull", "es": "jalar",
+    "sentence_en": "He **pulls** the rope.", "sentence_es": "Él **jala** la cuerda.",
     "conjugations": { "yo": "jalo", "tú": "jalas", "él/ella": "jala", "nosotros": "jalamos", "ustedes": "jalan" }
   },
-  { "id": 74, "en": "sky", "es": "cielo" },
-  { "id": 75, "en": "out", "es": "fuera" },
-  { "id": 76, "en": "I saw", "es": "yo vi" },
-  { "id": 77, "en": "straight", "es": "recta" },
-  { "id": 78, "en": "under", "es": "bajo" },
-  { "id": 79, "en": "baby", "es": "bebé" },
-  { "id": 80, "en": "eight", "es": "ocho" },
+  { "id": 74, "en": "sky", "es": "cielo", "sentence_en": "The **sky** is blue.", "sentence_es": "El **cielo** es azul." },
+  { "id": 75, "en": "out", "es": "fuera", "sentence_en": "The dog goes **out**.", "sentence_es": "El perro sale **fuera**." },
+  { "id": 76, "en": "I saw", "es": "yo vi", "sentence_en": "**I saw** a rainbow today!", "sentence_es": "**¡Yo vi** un arcoíris hoy!" },
+  { "id": 77, "en": "straight", "es": "recta", "sentence_en": "Draw a **straight** line.", "sentence_es": "Dibuja una línea **recta**." },
+  { "id": 78, "en": "under", "es": "bajo", "sentence_en": "The cat hides **under** the bed.", "sentence_es": "El gato se esconde **bajo** la cama." },
+  { "id": 79, "en": "baby", "es": "bebé", "sentence_en": "The **baby** is sleepy.", "sentence_es": "El **bebé** tiene sueño." },
+  { "id": 80, "en": "eight", "es": "ocho", "sentence_en": "I am **eight** years old.", "sentence_es": "Yo tengo **ocho** años." },
   {
     "id": 81, "en": "to wash", "es": "lavar",
+    "sentence_en": "I **wash** my hands.", "sentence_es": "Yo **lavo** mis manos.",
     "conjugations": { "yo": "lavo", "tú": "lavas", "él/ella": "lava", "nosotros": "lavamos", "ustedes": "lavan" }
   },
-  { "id": 82, "en": "early", "es": "temprano" },
-  { "id": 83, "en": "isn't", "es": "no es" },
+  { "id": 82, "en": "early", "es": "temprano", "sentence_en": "I wake up **early**.", "sentence_es": "Yo me despierto **temprano**." },
+  { "id": 83, "en": "isn't", "es": "no es", "sentence_en": "That **isn't** my pencil.", "sentence_es": "Eso **no es** mi lápiz." },
   {
     "id": 84, "en": "to learn", "es": "aprender",
+    "sentence_en": "You **learn** new words every day.", "sentence_es": "Tú **aprendes** palabras nuevas cada día.",
     "conjugations": { "yo": "aprendo", "tú": "aprendes", "él/ella": "aprende", "nosotros": "aprendemos", "ustedes": "aprenden" }
   },
   {
     "id": 85, "en": "to start", "es": "comenzar",
+    "sentence_en": "The class **starts** soon.", "sentence_es": "La clase **comienza** pronto.",
     "conjugations": { "yo": "comienzo", "tú": "comienzas", "él/ella": "comienza", "nosotros": "comenzamos", "ustedes": "comienzan" }
   },
   {
     "id": 86, "en": "to try", "es": "intentar",
+    "sentence_en": "I **try** my best.", "sentence_es": "Yo **intento** hacer mi mejor esfuerzo.",
     "conjugations": { "yo": "intento", "tú": "intentas", "él/ella": "intenta", "nosotros": "intentamos", "ustedes": "intentan" }
   },
-  { "id": 87, "en": "seven", "es": "siete" },
-  { "id": 88, "en": "these", "es": "estos / estas" },
+  { "id": 87, "en": "seven", "es": "siete", "sentence_en": "There are **seven** days in a week.", "sentence_es": "Hay **siete** días en una semana." },
+  { "id": 88, "en": "these", "es": "estos / estas", "sentence_en": "**These** are my crayons.", "sentence_es": "**Estos** son mis crayones." },
   {
     "id": 89, "en": "to walk", "es": "caminar",
+    "sentence_en": "You **walk** to the park.", "sentence_es": "Tú **caminas** al parque.",
     "conjugations": { "yo": "camino", "tú": "caminas", "él/ella": "camina", "nosotros": "caminamos", "ustedes": "caminan" }
   },
-  { "id": 90, "en": "bird", "es": "pájaro" },
-  { "id": 91, "en": "field", "es": "campo" },
+  { "id": 90, "en": "bird", "es": "pájaro", "sentence_en": "The **bird** sings in the morning.", "sentence_es": "El **pájaro** canta en la mañana." },
+  { "id": 91, "en": "field", "es": "campo", "sentence_en": "We play in the **field**.", "sentence_es": "Jugamos en el **campo**." },
   {
     "id": 92, "en": "to grow", "es": "crecer",
+    "sentence_en": "The plant **grows** fast.", "sentence_es": "La planta **crece** rápido.",
     "conjugations": { "yo": "crezco", "tú": "creces", "él/ella": "crece", "nosotros": "crecemos", "ustedes": "crecen" }
   },
-  { "id": 93, "en": "far", "es": "lejos" },
-  { "id": 94, "en": "flower", "es": "flor" },
-  { "id": 95, "en": "leaves", "es": "hojas" },
-  { "id": 96, "en": "light", "es": "luz" },
-  { "id": 97, "en": "ready", "es": "listo" },
-  { "id": 98, "en": "about", "es": "acerca de" },
-  { "id": 99, "en": "orange", "es": "naranja" },
-  { "id": 100, "en": "until", "es": "hasta" },
-  { "id": 101, "en": "around", "es": "en torno a" },
-  { "id": 102, "en": "good", "es": "bueno" },
-  { "id": 103, "en": "idea", "es": "idea" },
-  { "id": 104, "en": "part", "es": "parte" },
-  { "id": 105, "en": "great", "es": "gran" },
-  { "id": 106, "en": "often", "es": "a menudo" },
-  { "id": 107, "en": "second", "es": "segundo" },
-  { "id": 108, "en": "two", "es": "dos" },
-  { "id": 109, "en": "also", "es": "también" },
+  { "id": 93, "en": "far", "es": "lejos", "sentence_en": "The park is **far** away.", "sentence_es": "El parque está **lejos**." },
+  { "id": 94, "en": "flower", "es": "flor", "sentence_en": "The **flower** is red.", "sentence_es": "La **flor** es roja." },
+  { "id": 95, "en": "leaves", "es": "hojas", "sentence_en": "The **leaves** fall in autumn.", "sentence_es": "Las **hojas** caen en otoño." },
+  { "id": 96, "en": "light", "es": "luz", "sentence_en": "The **light** is very bright.", "sentence_es": "La **luz** es muy brillante." },
+  { "id": 97, "en": "ready", "es": "listo", "sentence_en": "I am **ready** for school.", "sentence_es": "Estoy **listo** para la escuela." },
+  { "id": 98, "en": "about", "es": "acerca de", "sentence_en": "Tell me **about** your day.", "sentence_es": "Cuéntame **acerca de** tu día." },
+  { "id": 99, "en": "orange", "es": "naranja", "sentence_en": "I eat an **orange**.", "sentence_es": "Yo como una **naranja**." },
+  { "id": 100, "en": "until", "es": "hasta", "sentence_en": "I wait **until** lunchtime.", "sentence_es": "Espero **hasta** la hora del almuerzo." },
+  { "id": 101, "en": "around", "es": "en torno a", "sentence_en": "We walk **around** the block.", "sentence_es": "Caminamos **en torno a** la cuadra." },
+  { "id": 102, "en": "good", "es": "bueno", "sentence_en": "You did a **good** job!", "sentence_es": "¡Hiciste un **buen** trabajo!" },
+  { "id": 103, "en": "idea", "es": "idea", "sentence_en": "That is a great **idea**!", "sentence_es": "¡Esa es una gran **idea**!" },
+  { "id": 104, "en": "part", "es": "parte", "sentence_en": "This is **part** of the story.", "sentence_es": "Esta es **parte** de la historia." },
+  { "id": 105, "en": "great", "es": "gran", "sentence_en": "She is a **great** teacher.", "sentence_es": "Ella es una **gran** maestra." },
+  { "id": 106, "en": "often", "es": "a menudo", "sentence_en": "I **often** eat breakfast.", "sentence_es": "**A menudo** yo desayuno." },
+  { "id": 107, "en": "second", "es": "segundo", "sentence_en": "I finished in **second** place.", "sentence_es": "Terminé en **segundo** lugar." },
+  { "id": 108, "en": "two", "es": "dos", "sentence_en": "I have **two** cats.", "sentence_es": "Yo tengo **dos** gatos." },
+  { "id": 109, "en": "also", "es": "también", "sentence_en": "I **also** like to draw.", "sentence_es": "A mí **también** me gusta dibujar." },
   {
     "id": 110, "en": "to begin", "es": "empezar",
+    "sentence_en": "I **begin** my homework.", "sentence_es": "Yo **empiezo** mi tarea.",
     "conjugations": { "yo": "empiezo", "tú": "empiezas", "él/ella": "empieza", "nosotros": "empezamos", "ustedes": "empiezan" }
   },
-  { "id": 111, "en": "world", "es": "mundo" },
-  { "id": 112, "en": "apart", "es": "aparte" },
-  { "id": 113, "en": "either", "es": "o bien" },
-  { "id": 114, "en": "hundred", "es": "cien" },
-  { "id": 115, "en": "places", "es": "lugares" },
-  { "id": 116, "en": "which", "es": "que" },
-  { "id": 117, "en": "over", "es": "sobre" },
-  { "id": 118, "en": "those", "es": "esos" },
-  { "id": 119, "en": "without", "es": "sin" },
-  { "id": 120, "en": "better", "es": "mejor" },
-  { "id": 121, "en": "long", "es": "largo / larga" },
-  { "id": 122, "en": "only", "es": "sólo" },
-  { "id": 123, "en": "group", "es": "grupo" },
-  { "id": 124, "en": "more", "es": "más" },
-  { "id": 125, "en": "our", "es": "nuestra / nuestro" },
-  { "id": 127, "en": "who", "es": "quien" },
-  { "id": 128, "en": "after", "es": "después de" },
-  { "id": 129, "en": "three", "es": "tres" },
-  { "id": 130, "en": "won't", "es": "no lo hará" },
-  { "id": 131, "en": "before", "es": "antes de" },
-  { "id": 132, "en": "every", "es": "cada" },
-  { "id": 133, "en": "first", "es": "primero" },
+  { "id": 111, "en": "world", "es": "mundo", "sentence_en": "The **world** is very big.", "sentence_es": "El **mundo** es muy grande." },
+  { "id": 112, "en": "apart", "es": "aparte", "sentence_en": "My hands are far **apart**.", "sentence_es": "Mis manos están muy **aparte**." },
+  { "id": 113, "en": "either", "es": "o bien", "sentence_en": "You can pick **either** one.", "sentence_es": "Puedes escoger **o bien** uno." },
+  { "id": 114, "en": "hundred", "es": "cien", "sentence_en": "I count to one **hundred**.", "sentence_es": "Cuento hasta **cien**." },
+  { "id": 115, "en": "places", "es": "lugares", "sentence_en": "I love to visit new **places**.", "sentence_es": "Me gusta visitar **lugares** nuevos." },
+  { "id": 116, "en": "which", "es": "que", "sentence_en": "**Which** color do you like?", "sentence_es": "¿**Qué** color te gusta?" },
+  { "id": 117, "en": "over", "es": "sobre", "sentence_en": "The bird flies **over** us.", "sentence_es": "El pájaro vuela **sobre** nosotros." },
+  { "id": 118, "en": "those", "es": "esos", "sentence_en": "**Those** stars are bright.", "sentence_es": "**Esas** estrellas son brillantes." },
+  { "id": 119, "en": "without", "es": "sin", "sentence_en": "I can't sleep **without** my blanket.", "sentence_es": "No puedo dormir **sin** mi manta." },
+  { "id": 120, "en": "better", "es": "mejor", "sentence_en": "I feel **better** today.", "sentence_es": "Me siento **mejor** hoy." },
+  { "id": 121, "en": "long", "es": "largo / larga", "sentence_en": "The snake is very **long**.", "sentence_es": "La serpiente es muy **larga**." },
+  { "id": 122, "en": "only", "es": "sólo", "sentence_en": "I **only** have one pencil.", "sentence_es": "**Sólo** tengo un lápiz." },
+  { "id": 123, "en": "group", "es": "grupo", "sentence_en": "I work in a **group**.", "sentence_es": "Yo trabajo en un **grupo**." },
+  { "id": 124, "en": "more", "es": "más", "sentence_en": "I want **more** apples.", "sentence_es": "Quiero **más** manzanas." },
+  { "id": 125, "en": "our", "es": "nuestra / nuestro", "sentence_en": "This is **our** classroom.", "sentence_es": "Este es **nuestro** salón de clases." },
+  { "id": 127, "en": "who", "es": "quien", "sentence_en": "**Who** is your teacher?", "sentence_es": "¿**Quién** es tu maestra?" },
+  { "id": 128, "en": "after", "es": "después de", "sentence_en": "We play **after** school.", "sentence_es": "Jugamos **después de** la escuela." },
+  { "id": 129, "en": "three", "es": "tres", "sentence_en": "I have **three** sisters.", "sentence_es": "Yo tengo **tres** hermanas." },
+  { "id": 130, "en": "won't", "es": "no lo hará", "sentence_en": "I **won't** give up!", "sentence_es": "¡**No me rendiré**!" },
+  { "id": 131, "en": "before", "es": "antes de", "sentence_en": "Wash your hands **before** eating.", "sentence_es": "Lávate las manos **antes de** comer." },
+  { "id": 132, "en": "every", "es": "cada", "sentence_en": "I brush my teeth **every** day.", "sentence_es": "Me cepillo los dientes **cada** día." },
+  { "id": 133, "en": "first", "es": "primero", "sentence_en": "I am **first** in line.", "sentence_es": "Yo soy el **primero** en la fila." },
   {
     "id": 134, "en": "to hurt", "es": "lastimar",
+    "sentence_en": "You **hurt** your knee.", "sentence_es": "Tú te **lastimas** la rodilla.",
     "conjugations": { "yo": "lastimo", "tú": "lastimas", "él/ella": "lastima", "nosotros": "lastimamos", "ustedes": "lastiman" }
   },
-  { "id": 135, "en": "few", "es": "algunos" },
+  { "id": 135, "en": "few", "es": "algunos", "sentence_en": "I have a **few** crayons.", "sentence_es": "Tengo **algunos** crayones." },
   {
     "id": 136, "en": "to hear", "es": "oír",
+    "sentence_en": "She **hears** the music.", "sentence_es": "Ella **oye** la música.",
     "conjugations": { "yo": "oigo", "tú": "oyes", "él/ella": "oye", "nosotros": "oímos", "ustedes": "oyen" }
   },
-  { "id": 137, "en": "old", "es": "viejo" }
+  { "id": 137, "en": "old", "es": "viejo", "sentence_en": "My grandpa is **old**.", "sentence_es": "Mi abuelo es **viejo**." }
 ]

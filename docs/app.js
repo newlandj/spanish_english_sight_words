@@ -217,6 +217,10 @@ function renderCardScreen(deck) {
         </div>`
       : "";
 
+    const highlightSentence = s => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    const sentenceFront = highlightSentence(isEnEs ? word.sentence_en : word.sentence_es);
+    const sentenceBack  = highlightSentence(isEnEs ? word.sentence_es : word.sentence_en);
+
     flipped = false;
 
     app.innerHTML = `
@@ -235,6 +239,7 @@ function renderCardScreen(deck) {
               <div class="card-face card-front ${frontCardClass}">
                 <span class="lang-label">${promptLang}</span>
                 <span class="word">${prompt}</span>
+                <span class="card-sentence">${sentenceFront}</span>
                 <span class="tap-hint">tap to reveal</span>
               </div>
               <div class="card-face card-back ${backCardClass} ${hasConjugations ? "with-conjugations" : ""}">
@@ -244,9 +249,11 @@ function renderCardScreen(deck) {
                     <span class="word word-verb">${answer}</span>
                     ${conjugationTable}
                   </div>
+                  <span class="card-sentence">${sentenceBack}</span>
                 ` : `
                   <span class="lang-label">${answerLang}</span>
                   <span class="word">${answer}</span>
+                  <span class="card-sentence">${sentenceBack}</span>
                 `}
               </div>
             </div>
@@ -260,10 +267,11 @@ function renderCardScreen(deck) {
     `;
 
     document.getElementById("card-flip").addEventListener("click", () => {
-      if (flipped) return;
-      flipped = true;
-      document.getElementById("card-flip").classList.add("flipped");
-      document.getElementById("answer-btns").classList.add("visible");
+      document.getElementById("card-flip").classList.toggle("flipped");
+      if (!flipped) {
+        flipped = true;
+        document.getElementById("answer-btns").classList.add("visible");
+      }
     });
 
     document.getElementById("btn-got").addEventListener("click", () => {
