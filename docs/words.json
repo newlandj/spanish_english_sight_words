@@ -27,7 +27,7 @@
   { "id": 13, "en": "how", "es": "cómo" },
   { "id": 14, "en": "one", "es": "un / una" },
   { "id": 15, "en": "green", "es": "verde" },
-  { "id": 16, "en": "little", "es": "pequeño / pequeña" },
+  { "id": 16, "en": "little / small", "es": "pequeño / pequeña" },
   { "id": 17, "en": "or", "es": "o" },
   {
     "id": 18, "en": "to see", "es": "ver",
@@ -42,8 +42,10 @@
   { "id": 22, "en": "by", "es": "por" },
   { "id": 23, "en": "he", "es": "él" },
   { "id": 24, "en": "here", "es": "aquí" },
-  { "id": 25, "en": "small", "es": "pequeño / pequeña" },
-  { "id": 26, "en": "were", "es": "estaban / eran" },
+  {
+    "id": 26, "en": "to be", "es": "ser / estar",
+    "conjugations": { "yo": "soy", "tú": "eres", "él/ella": "es", "nosotros": "somos", "ustedes": "son" }
+  },
   { "id": 27, "en": "she", "es": "ella" },
   {
     "id": 28, "en": "to want", "es": "querer",
@@ -53,7 +55,10 @@
   { "id": 30, "en": "another", "es": "otro" },
   { "id": 31, "en": "into", "es": "en" },
   { "id": 32, "en": "now", "es": "ahora" },
-  { "id": 33, "en": "done", "es": "hecho" },
+  {
+    "id": 33, "en": "to do", "es": "hacer",
+    "conjugations": { "yo": "hago", "tú": "haces", "él/ella": "hace", "nosotros": "hacemos", "ustedes": "hacen" }
+  },
   {
     "id": 34, "en": "to move", "es": "mover",
     "conjugations": { "yo": "muevo", "tú": "mueves", "él/ella": "mueve", "nosotros": "movemos", "ustedes": "mueven" }
@@ -66,7 +71,7 @@
   { "id": 37, "en": "year", "es": "año" },
   { "id": 38, "en": "all", "es": "todos" },
   { "id": 39, "en": "water", "es": "agua" },
-  { "id": 40, "en": "your", "es": "su / sus" },
+  { "id": 40, "en": "your", "es": "tu (informal) / su (formal)" },
   { "id": 41, "en": "any", "es": "alguno" },
   {
     "id": 42, "en": "to go", "es": "ir",
@@ -128,13 +133,16 @@
     "id": 65, "en": "to open", "es": "abrir",
     "conjugations": { "yo": "abro", "tú": "abres", "él/ella": "abre", "nosotros": "abrimos", "ustedes": "abren" }
   },
-  { "id": 66, "en": "should", "es": "debería" },
+  {
+    "id": 66, "en": "to owe / should", "es": "deber",
+    "conjugations": { "yo": "debo", "tú": "debes", "él/ella": "debe", "nosotros": "debemos", "ustedes": "deben" }
+  },
   {
     "id": 67, "en": "to win", "es": "ganar",
     "conjugations": { "yo": "gano", "tú": "ganas", "él/ella": "gana", "nosotros": "ganamos", "ustedes": "ganan" }
   },
   { "id": 68, "en": "almost", "es": "casi" },
-  { "id": 69, "en": "their", "es": "su / sus" },
+  { "id": 69, "en": "their", "es": "sus" },
   { "id": 70, "en": "yes", "es": "sí" },
   {
     "id": 71, "en": "to buy", "es": "comprar",
@@ -147,7 +155,7 @@
   },
   { "id": 74, "en": "sky", "es": "cielo" },
   { "id": 75, "en": "out", "es": "fuera" },
-  { "id": 76, "en": "saw", "es": "vio" },
+  { "id": 76, "en": "I saw", "es": "yo vi" },
   { "id": 77, "en": "straight", "es": "recta" },
   { "id": 78, "en": "under", "es": "bajo" },
   { "id": 79, "en": "baby", "es": "bebé" },
@@ -218,7 +226,6 @@
   { "id": 123, "en": "group", "es": "grupo" },
   { "id": 124, "en": "more", "es": "más" },
   { "id": 125, "en": "our", "es": "nuestra / nuestro" },
-  { "id": 126, "en": "started", "es": "comenzó" },
   { "id": 127, "en": "who", "es": "quien" },
   { "id": 128, "en": "after", "es": "después de" },
   { "id": 129, "en": "three", "es": "tres" },
@@ -226,13 +233,14 @@
   { "id": 131, "en": "before", "es": "antes de" },
   { "id": 132, "en": "every", "es": "cada" },
   { "id": 133, "en": "first", "es": "primero" },
-  { "id": 134, "en": "hurt", "es": "herido" },
+  {
+    "id": 134, "en": "to hurt", "es": "lastimar",
+    "conjugations": { "yo": "lastimo", "tú": "lastimas", "él/ella": "lastima", "nosotros": "lastimamos", "ustedes": "lastiman" }
+  },
   { "id": 135, "en": "few", "es": "algunos" },
   {
     "id": 136, "en": "to hear", "es": "oír",
     "conjugations": { "yo": "oigo", "tú": "oyes", "él/ella": "oye", "nosotros": "oímos", "ustedes": "oyen" }
   },
-  { "id": 137, "en": "old", "es": "viejo" },
-  { "id": 138, "en": "I can", "es": "yo puedo" },
-  { "id": 139, "en": "she says", "es": "ella dice" }
+  { "id": 137, "en": "old", "es": "viejo" }
 ]
