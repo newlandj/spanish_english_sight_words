@@ -93,7 +93,7 @@ html, body {
 }
 
 .stat-pill.mastered .num { color: var(--green-dark); }
-.stat-pill.struggling .num { color: var(--red); }
+.stat-pill.still-learning .num { color: var(--red); }
 .stat-pill.unseen .num { color: var(--blue); }
 
 .section-label {
@@ -497,4 +497,101 @@ html, body {
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(59,130,246,0.35);
+}
+
+/* ── SUBJECT PICKER ── */
+.subject-grid {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.subject-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 16px;
+  background: white;
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  text-align: center;
+}
+
+.subject-card:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.subject-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.subject-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--gray-800);
+}
+
+.subject-desc {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+}
+
+/* ── BACK BUTTON ── */
+.btn-back {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--blue);
+  cursor: pointer;
+  padding: 0 0 16px 0;
+  font-weight: 600;
+}
+
+/* ── PICKER ROW ── */
+.picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 18px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.picker-row:active { background: var(--gray-100); }
+
+.picker-arrow {
+  font-size: 1.4rem;
+  color: var(--gray-400);
+}
+
+/* ── MATH CARD BACK ── */
+.math-back {
+  background: var(--blue);
+  color: white;
+  gap: 4px;
+}
+
+.math-problem {
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+.math-answer {
+  font-size: clamp(3rem, 16vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1;
 }
