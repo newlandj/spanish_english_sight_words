@@ -4,8 +4,8 @@
   "description": "Spanish/English flashcard app for 2nd graders",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#3b82f6",
+  "background_color": "#FFFBF0",
+  "theme_color": "#7C3AED",
   "orientation": "portrait",
   "icons": [
     {
