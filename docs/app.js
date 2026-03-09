@@ -1,8 +1,23 @@
-const STORAGE_KEY = "sightwords_progress";
-const MATH_STORAGE_KEY = "math_progress";
-const WORDS_URL = "./words.json";
+const STORAGE_KEY        = "sightwords_progress";
+const MATH_STORAGE_KEY   = "math_progress";
+const DAILY_STREAK_KEY   = "daily_streak";
+const XP_KEY             = "xp_data";
+const BADGES_KEY         = "badges";
+const DAILY_CHALLENGE_KEY = "daily_challenge";
+const WORDS_URL          = "./words.json";
 
-// ── Data ──────────────────────────────────────────────────────────────────────
+// XP needed to reach each level (index = level - 1)
+const LEVEL_THRESHOLDS = [0, 100, 250, 450, 700, 1050, 1500, 2100, 2800, 3700];
+
+const BADGE_DEFS = {
+  "first-blood":   { name: "First Blood",     desc: "First correct answer!",       icon: "🩸" },
+  "hot-streak-5":  { name: "Hot Streak",       desc: "5 correct in a row",          icon: "🔥" },
+  "on-fire-10":    { name: "On Fire",          desc: "10 correct in a row",         icon: "🌋" },
+  "flawless":      { name: "Flawless",         desc: "Finish a deck with 0 misses", icon: "⭐" },
+  "daily-complete":{ name: "Daily Challenger", desc: "Complete a daily challenge",  icon: "📅" },
+};
+
+// ── Language data ──────────────────────────────────────────────────────────────
 
 let words = [];
 
@@ -12,11 +27,8 @@ async function loadWords() {
 }
 
 function loadProgress() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-  } catch {
-    return {};
-  }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+  catch { return {}; }
 }
 
 function saveProgress(progress) {
@@ -26,24 +38,18 @@ function saveProgress(progress) {
 function recordResult(wordId, direction, correct) {
   const progress = loadProgress();
   if (!progress[wordId]) progress[wordId] = {};
-  const key = direction; // "en_es" or "es_en"
-  const [c, w] = progress[wordId][key] || [0, 0];
-  progress[wordId][key] = correct ? [c + 1, w] : [c, w + 1];
+  const [c, w] = progress[wordId][direction] || [0, 0];
+  progress[wordId][direction] = correct ? [c + 1, w] : [c, w + 1];
   saveProgress(progress);
 }
 
-// direction: "en_es" | "es_en"
 function isStillLearning(wordId, direction, progress) {
-  const entry = (progress[wordId] || {})[direction];
-  if (!entry) return false;
-  const [correct, wrong] = entry;
+  const [correct = 0, wrong = 0] = (progress[wordId] || {})[direction] || [];
   return wrong > correct;
 }
 
 function isUnseen(wordId, direction, progress) {
-  const entry = (progress[wordId] || {})[direction];
-  if (!entry) return true;
-  const [correct, wrong] = entry;
+  const [correct = 0, wrong = 0] = (progress[wordId] || {})[direction] || [];
   return correct === wrong;
 }
 
@@ -51,60 +57,22 @@ function getStats() {
   const progress = loadProgress();
   let mastered = 0, stillLearning = 0, unseen = 0;
   for (const word of words) {
-    const dirs = ["en_es", "es_en"];
-    for (const dir of dirs) {
-      const entry = (progress[word.id] || {})[dir];
-      if (!entry) { unseen++; continue; }
-      const [correct, wrong] = entry;
-      if (correct > wrong) mastered++;
-      else if (wrong > correct) stillLearning++;
+    for (const dir of ["en_es", "es_en"]) {
+      const [c = 0, w = 0] = (progress[word.id] || {})[dir] || [];
+      if (!((progress[word.id] || {})[dir])) unseen++;
+      else if (c > w) mastered++;
+      else if (w > c) stillLearning++;
       else unseen++;
     }
   }
   return { mastered, stillLearning, unseen };
 }
 
-// ── Deck builder ──────────────────────────────────────────────────────────────
-
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-/**
- * Returns array of { word, direction } objects.
- * mode: "all" | "still-learning" | "new"
- * direction: "en_es" | "es_en" | "mixed"
- */
-function buildDeck(mode, direction) {
-  const progress = loadProgress();
-  const dirs = direction === "mixed" ? null : [direction];
-
-  let cards = [];
-  for (const word of words) {
-    const wordDirs = dirs || ["en_es", "es_en"];
-    for (const dir of wordDirs) {
-      if (mode === "still-learning" && !isStillLearning(word.id, dir, progress)) continue;
-      if (mode === "new" && !isUnseen(word.id, dir, progress)) continue;
-      cards.push({ word, direction: dir });
-    }
-  }
-
-  return shuffle(cards);
-}
-
-// ── Math data & logic ─────────────────────────────────────────────────────────
+// ── Math data ──────────────────────────────────────────────────────────────────
 
 function loadMathProgress() {
-  try {
-    return JSON.parse(localStorage.getItem(MATH_STORAGE_KEY) || "{}");
-  } catch {
-    return {};
-  }
+  try { return JSON.parse(localStorage.getItem(MATH_STORAGE_KEY) || "{}"); }
+  catch { return {}; }
 }
 
 function saveMathProgress(progress) {
@@ -121,22 +89,19 @@ function recordMathResult(factId, correct) {
 function getMathStats(table) {
   const progress = loadMathProgress();
   let mastered = 0, stillLearning = 0, unseen = 0;
-  const facts = getMathFacts(table);
-  for (const fact of facts) {
-    const entry = progress[fact.id];
-    if (!entry) { unseen++; continue; }
-    const [correct, wrong] = entry;
-    if (correct > wrong) mastered++;
-    else if (wrong > correct) stillLearning++;
+  for (const fact of getMathFacts(table)) {
+    const [c = 0, w = 0] = progress[fact.id] || [];
+    if (!progress[fact.id]) unseen++;
+    else if (c > w) mastered++;
+    else if (w > c) stillLearning++;
     else unseen++;
   }
   return { mastered, stillLearning, unseen };
 }
 
-// table: number 1-9 or "all"
 function getMathFacts(table) {
-  const facts = [];
   const tables = table === "all" ? [1,2,3,4,5,6,7,8,9] : [table];
+  const facts = [];
   for (const a of tables) {
     for (let b = 1; b <= 9; b++) {
       facts.push({ id: `${a}x${b}`, a, b, answer: a * b });
@@ -147,40 +112,287 @@ function getMathFacts(table) {
 
 function buildMathDeck(mode, table) {
   const progress = loadMathProgress();
-  const facts = getMathFacts(table);
-  let cards = facts.filter(fact => {
-    const entry = progress[fact.id];
-    if (mode === "still-learning") {
-      if (!entry) return false;
-      const [c, w] = entry;
-      return w > c;
-    }
-    if (mode === "new") {
-      if (!entry) return true;
-      const [c, w] = entry;
-      return c === w;
-    }
-    return true; // "all"
+  let cards = getMathFacts(table).filter(fact => {
+    const [c = 0, w = 0] = progress[fact.id] || [];
+    if (mode === "still-learning") return w > c;
+    if (mode === "new") return c === w && !progress[fact.id] || c === w;
+    return true;
   });
   return shuffle(cards);
 }
 
-// ── Rendering ─────────────────────────────────────────────────────────────────
+// ── Daily streak ───────────────────────────────────────────────────────────────
+
+function getDailyStreak() {
+  try { return JSON.parse(localStorage.getItem(DAILY_STREAK_KEY)) || { streak: 0, lastDate: null }; }
+  catch { return { streak: 0, lastDate: null }; }
+}
+
+function markSessionPlayed() {
+  const today = new Date().toISOString().slice(0, 10);
+  const data = getDailyStreak();
+  if (data.lastDate === today) return;
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const newStreak = data.lastDate === yesterday ? data.streak + 1 : 1;
+  localStorage.setItem(DAILY_STREAK_KEY, JSON.stringify({ streak: newStreak, lastDate: today }));
+}
+
+// ── XP & Levels ────────────────────────────────────────────────────────────────
+
+function getXPData() {
+  try { return JSON.parse(localStorage.getItem(XP_KEY)) || { xp: 0, level: 1 }; }
+  catch { return { xp: 0, level: 1 }; }
+}
+
+function getLevelForXP(xp) {
+  let level = 1;
+  for (let i = LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {
+    if (xp >= LEVEL_THRESHOLDS[i]) { level = i + 1; break; }
+  }
+  return level;
+}
+
+function getXPProgress(xp) {
+  const level = getLevelForXP(xp);
+  const lo = LEVEL_THRESHOLDS[level - 1] || 0;
+  const hi = LEVEL_THRESHOLDS[level] || lo + 1000;
+  const pct = Math.min(100, Math.round(((xp - lo) / (hi - lo)) * 100));
+  return { level, currentXP: xp - lo, rangeXP: hi - lo, pct };
+}
+
+function addXP(amount) {
+  const data = getXPData();
+  const prevLevel = getLevelForXP(data.xp);
+  data.xp += amount;
+  data.level = getLevelForXP(data.xp);
+  localStorage.setItem(XP_KEY, JSON.stringify(data));
+  return { leveledUp: data.level > prevLevel, newLevel: data.level, totalXP: data.xp };
+}
+
+// ── Badges ─────────────────────────────────────────────────────────────────────
+
+function getEarnedBadges() {
+  try { return JSON.parse(localStorage.getItem(BADGES_KEY)) || []; }
+  catch { return []; }
+}
+
+function awardBadge(badgeId) {
+  const earned = getEarnedBadges();
+  if (earned.includes(badgeId)) return false;
+  earned.push(badgeId);
+  localStorage.setItem(BADGES_KEY, JSON.stringify(earned));
+  return true;
+}
+
+// ── Deck builders ──────────────────────────────────────────────────────────────
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildDeck(mode, direction) {
+  const progress = loadProgress();
+  const dirs = direction === "mixed" ? null : [direction];
+  const cards = [];
+  for (const word of words) {
+    for (const dir of (dirs || ["en_es", "es_en"])) {
+      if (mode === "still-learning" && !isStillLearning(word.id, dir, progress)) continue;
+      if (mode === "new" && !isUnseen(word.id, dir, progress)) continue;
+      cards.push({ word, direction: dir });
+    }
+  }
+  return shuffle(cards);
+}
+
+function seededRandom(seed) {
+  let s = seed;
+  return () => {
+    s = (s * 1664525 + 1013904223) & 0xffffffff;
+    return (s >>> 0) / 0x100000000;
+  };
+}
+
+function seededShuffle(arr, seed) {
+  const a = [...arr];
+  const rand = seededRandom(seed);
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function getDailySeed() {
+  const d = new Date();
+  return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+}
+
+function buildDailyDeck() {
+  const allCards = [];
+  for (const word of words) {
+    allCards.push({ word, direction: "en_es" });
+    allCards.push({ word, direction: "es_en" });
+  }
+  return seededShuffle(allCards, getDailySeed()).slice(0, 10);
+}
+
+// ── Gamification UI helpers ────────────────────────────────────────────────────
+
+function showXPFloat(amount, isBonus) {
+  const el = document.createElement("div");
+  el.className = `xp-float${isBonus ? " bonus" : ""}`;
+  el.textContent = `+${amount} XP`;
+  el.style.left = "50%";
+  el.style.bottom = "140px";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 950);
+}
+
+function showStreakBanner(streak) {
+  const msgs = { 3: "🔥 3 in a row!", 5: "🔥🔥 On fire! 5 streak!", 10: "🌋 UNSTOPPABLE! 10 streak!" };
+  const msg = msgs[streak];
+  if (!msg) return;
+  const el = document.createElement("div");
+  el.className = "streak-banner";
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1900);
+}
+
+function showBadgeToast(badgeId) {
+  const badge = BADGE_DEFS[badgeId];
+  if (!badge) return;
+  const el = document.createElement("div");
+  el.className = "badge-toast";
+  el.innerHTML = `
+    <span class="badge-toast-icon">${badge.icon}</span>
+    <span class="badge-toast-text">
+      <span class="badge-toast-title">Badge unlocked: ${badge.name}</span>
+      <span class="badge-toast-desc">${badge.desc}</span>
+    </span>
+  `;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2700);
+}
+
+function showLevelUpBanner(level) {
+  const el = document.createElement("div");
+  el.className = "level-up-banner";
+  el.innerHTML = `
+    <div class="lu-tag">Level Up!</div>
+    <div class="lu-num">${level}</div>
+    <div class="lu-sub">You reached Level ${level}!</div>
+  `;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2300);
+}
+
+function showMasteryMoment() {
+  const el = document.createElement("div");
+  el.className = "mastery-star";
+  el.textContent = "⭐";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 950);
+}
+
+function triggerConfetti(intensity = 1) {
+  const canvas = document.createElement("canvas");
+  canvas.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:999;width:100%;height:100%";
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const count = Math.round(90 * intensity);
+  const colors = ["#3b82f6","#22c55e","#f59e0b","#ef4444","#8b5cf6","#ec4899","#06b6d4"];
+  const particles = Array.from({ length: count }, () => ({
+    x: Math.random() * canvas.width,
+    y: -10 - Math.random() * 150,
+    w: 6 + Math.random() * 8,
+    h: 3 + Math.random() * 4,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    vx: -2 + Math.random() * 4,
+    vy: 2.5 + Math.random() * 3.5,
+    rot: Math.random() * 360,
+    rotV: -4 + Math.random() * 8,
+  }));
+  let frame = 0;
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const p of particles) {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.06; p.rot += p.rotV;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    }
+    frame++;
+    if (frame < 200 && particles.some(p => p.y < canvas.height + 20)) requestAnimationFrame(animate);
+    else canvas.remove();
+  }
+  requestAnimationFrame(animate);
+}
+
+// ── Rendering ──────────────────────────────────────────────────────────────────
 
 const app = document.getElementById("app");
 
-// ── Subject picker ────────────────────────────────────────────────────────────
+// ── Subject picker ─────────────────────────────────────────────────────────────
 
 function renderSubjectPicker() {
+  const { streak, lastDate } = getDailyStreak();
+  const today = new Date().toISOString().slice(0, 10);
+  const streakActive = lastDate === today;
+  const xpData = getXPData();
+  const { level, currentXP, rangeXP, pct } = getXPProgress(xpData.xp);
+
+  const dailyCompleted = (() => {
+    try { return JSON.parse(localStorage.getItem(DAILY_CHALLENGE_KEY)); } catch { return null; }
+  })();
+  const dailyDoneToday = dailyCompleted && dailyCompleted.date === today;
+
   app.innerHTML = `
     <div class="home">
       <h1>Flashcards</h1>
       <p class="subtitle">What do you want to practice?</p>
+
+      <div class="gamification-bar">
+        <div class="daily-streak-pill ${streakActive ? "active" : streak === 0 ? "inactive" : ""}">
+          <span>${streakActive || streak > 0 ? "🔥" : "💤"}</span>
+          <span class="streak-num">${streak}</span>
+          <span class="streak-lbl">day streak</span>
+        </div>
+        <div class="xp-pill">
+          <div class="xp-pill-header">
+            <span class="xp-level-label">Level ${level}</span>
+            <span class="xp-count-label">${xpData.xp} XP</span>
+          </div>
+          <div class="xp-pill-bar-track">
+            <div class="xp-pill-bar-fill" style="width:${pct}%"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="daily-challenge-btn ${dailyDoneToday ? "done-today" : ""}" id="btn-daily">
+        <span class="daily-challenge-icon">${dailyDoneToday ? "✅" : "📅"}</span>
+        <span class="daily-challenge-text">
+          <span class="daily-challenge-title">${dailyDoneToday ? "Daily Complete!" : "Daily Challenge"}</span>
+          <span class="daily-challenge-sub">${dailyDoneToday ? `${dailyCompleted.correct} correct · ${dailyCompleted.wrong} missed` : "10 cards · today's set"}</span>
+        </span>
+        <span class="daily-challenge-arrow">›</span>
+      </button>
+
       <div class="subject-grid">
         <button class="subject-card" id="btn-language">
           <span class="subject-icon">🌎</span>
           <span class="subject-title">Language</span>
-          <span class="subject-desc">Sight words &amp; vocabulary</span>
+          <span class="subject-desc">Sight words &amp; vocab</span>
         </button>
         <button class="subject-card" id="btn-math">
           <span class="subject-icon">✖️</span>
@@ -190,11 +402,51 @@ function renderSubjectPicker() {
       </div>
     </div>
   `;
+
+  document.getElementById("btn-daily").addEventListener("click", renderDailyChallenge);
   document.getElementById("btn-language").addEventListener("click", renderLanguagePicker);
   document.getElementById("btn-math").addEventListener("click", renderMathPicker);
 }
 
-// ── Language picker ───────────────────────────────────────────────────────────
+// ── Daily challenge ────────────────────────────────────────────────────────────
+
+function renderDailyChallenge() {
+  const today = new Date().toISOString().slice(0, 10);
+  const completed = (() => {
+    try { return JSON.parse(localStorage.getItem(DAILY_CHALLENGE_KEY)); } catch { return null; }
+  })();
+  const alreadyDone = completed && completed.date === today;
+  const deck = buildDailyDeck();
+
+  app.innerHTML = `
+    <div class="home">
+      <button class="btn-back" id="btn-back">← Back</button>
+      <h1>Daily Challenge</h1>
+      <p class="subtitle">${today}</p>
+
+      ${alreadyDone ? `
+        <div class="daily-done-banner">
+          <span>✅ Already completed today!</span>
+          <span>${completed.correct} correct · ${completed.wrong} missed</span>
+        </div>
+      ` : ""}
+
+      <div class="daily-info">
+        <span class="daily-info-icon">📅</span>
+        <span>10 cards · Same set for everyone today · Seeded by date</span>
+      </div>
+
+      <button class="btn-start" id="btn-start">${alreadyDone ? "Play Again" : "Start Challenge"}</button>
+    </div>
+  `;
+
+  document.getElementById("btn-back").addEventListener("click", renderSubjectPicker);
+  document.getElementById("btn-start").addEventListener("click", () => {
+    renderCardScreen(deck, renderSubjectPicker, "daily");
+  });
+}
+
+// ── Language picker ────────────────────────────────────────────────────────────
 
 function renderLanguagePicker() {
   app.innerHTML = `
@@ -214,12 +466,10 @@ function renderLanguagePicker() {
   document.getElementById("btn-es-en").addEventListener("click", renderLanguageHome);
 }
 
-// ── Language home ─────────────────────────────────────────────────────────────
+// ── Language home ──────────────────────────────────────────────────────────────
 
 function renderLanguageHome() {
   const { mastered, stillLearning, unseen } = getStats();
-  const hasStillLearning = stillLearning > 0;
-  const hasUnseen = unseen > 0;
 
   app.innerHTML = `
     <div class="home">
@@ -249,11 +499,11 @@ function renderLanguageHome() {
           All words
         </label>
         <label>
-          <input type="radio" name="mode" value="still-learning" ${!hasStillLearning ? "disabled" : ""} />
+          <input type="radio" name="mode" value="still-learning" ${stillLearning === 0 ? "disabled" : ""} />
           Still learning only ${stillLearning > 0 ? `(${stillLearning})` : "(none yet)"}
         </label>
         <label>
-          <input type="radio" name="mode" value="new" ${!hasUnseen ? "disabled" : ""} />
+          <input type="radio" name="mode" value="new" ${unseen === 0 ? "disabled" : ""} />
           New words only ${unseen > 0 ? `(${unseen})` : "(none yet)"}
         </label>
       </div>
@@ -283,7 +533,7 @@ function renderLanguageHome() {
 
   document.getElementById("btn-start").addEventListener("click", () => {
     const mode = document.querySelector('input[name="mode"]:checked').value;
-    const dir = document.querySelector('input[name="dir"]:checked').value;
+    const dir  = document.querySelector('input[name="dir"]:checked').value;
     const deck = buildDeck(mode, dir);
     if (deck.length === 0) {
       if (mode === "still-learning") alert("No words in 'still learning' yet! Play 'All words' first.");
@@ -301,7 +551,7 @@ function renderLanguageHome() {
   });
 }
 
-// ── Math picker ───────────────────────────────────────────────────────────────
+// ── Math picker ────────────────────────────────────────────────────────────────
 
 function renderMathPicker() {
   app.innerHTML = `
@@ -321,13 +571,10 @@ function renderMathPicker() {
   document.getElementById("btn-mult").addEventListener("click", () => renderMathHome("all"));
 }
 
-// ── Math home ─────────────────────────────────────────────────────────────────
+// ── Math home ──────────────────────────────────────────────────────────────────
 
 function renderMathHome(selectedTable) {
   const { mastered, stillLearning, unseen } = getMathStats(selectedTable);
-  const hasStillLearning = stillLearning > 0;
-  const hasUnseen = unseen > 0;
-
   const tableOptions = [
     { value: "all", label: "All tables (1–9)" },
     ...Array.from({ length: 9 }, (_, i) => ({ value: i + 1, label: `${i + 1}× table` }))
@@ -371,11 +618,11 @@ function renderMathHome(selectedTable) {
           All facts
         </label>
         <label>
-          <input type="radio" name="mode" value="still-learning" ${!hasStillLearning ? "disabled" : ""} />
+          <input type="radio" name="mode" value="still-learning" ${stillLearning === 0 ? "disabled" : ""} />
           Still learning only ${stillLearning > 0 ? `(${stillLearning})` : "(none yet)"}
         </label>
         <label>
-          <input type="radio" name="mode" value="new" ${!hasUnseen ? "disabled" : ""} />
+          <input type="radio" name="mode" value="new" ${unseen === 0 ? "disabled" : ""} />
           New only ${unseen > 0 ? `(${unseen})` : "(none yet)"}
         </label>
       </div>
@@ -385,11 +632,9 @@ function renderMathHome(selectedTable) {
     </div>
   `;
 
-  // Re-render stats when table selection changes
   document.querySelectorAll('input[name="table"]').forEach(radio => {
     radio.addEventListener("change", () => {
-      const val = radio.value === "all" ? "all" : parseInt(radio.value);
-      renderMathHome(val);
+      renderMathHome(radio.value === "all" ? "all" : parseInt(radio.value));
     });
   });
 
@@ -398,8 +643,8 @@ function renderMathHome(selectedTable) {
   document.getElementById("btn-start").addEventListener("click", () => {
     const tableVal = document.querySelector('input[name="table"]:checked').value;
     const table = tableVal === "all" ? "all" : parseInt(tableVal);
-    const mode = document.querySelector('input[name="mode"]:checked').value;
-    const deck = buildMathDeck(mode, table);
+    const mode  = document.querySelector('input[name="mode"]:checked').value;
+    const deck  = buildMathDeck(mode, table);
     if (deck.length === 0) {
       if (mode === "still-learning") alert("No facts in 'still learning' yet! Play 'All facts' first.");
       else if (mode === "new") alert("No new facts left! You've seen them all.");
@@ -416,94 +661,20 @@ function renderMathHome(selectedTable) {
   });
 }
 
-// ── Math card screen ──────────────────────────────────────────────────────────
+// ── Language card screen ───────────────────────────────────────────────────────
 
-function renderMathCardScreen(deck) {
+function renderCardScreen(deck, onExit, sessionType = "normal") {
   let index = 0;
   let sessionCorrect = 0;
   let sessionWrong = 0;
+  let sessionStreak = 0;
+  let sessionXP = 0;
   let flipped = false;
+  let animating = false;
 
   function renderCard() {
     if (index >= deck.length) {
-      renderDone(sessionCorrect, sessionWrong, renderMathPicker);
-      return;
-    }
-
-    const fact = deck[index];
-    const pct = Math.round((index / deck.length) * 100);
-    flipped = false;
-
-    app.innerHTML = `
-      <div class="card-screen">
-        <div class="card-header">
-          <button class="btn-exit" id="btn-exit">← Home</button>
-          <span class="card-counter">${index + 1} / ${deck.length}</span>
-          <span class="direction-badge en-es">Multiplication</span>
-        </div>
-        <div class="card-area">
-          <div class="progress-bar-wrap">
-            <div class="progress-bar-fill" style="width:${pct}%"></div>
-          </div>
-          <div class="card-flip-container" id="card-flip">
-            <div class="card-inner">
-              <div class="card-face card-front">
-                <span class="word">${fact.a} × ${fact.b}</span>
-                <span class="tap-hint">tap to reveal</span>
-              </div>
-              <div class="card-face card-back math-back">
-                <span class="math-problem">${fact.a} × ${fact.b}</span>
-                <span class="math-answer">${fact.answer}</span>
-              </div>
-            </div>
-          </div>
-          <div class="answer-buttons" id="answer-btns">
-            <button class="btn-missed-it" id="btn-missed">✗ Missed it</button>
-            <button class="btn-got-it" id="btn-got">✓ Got it</button>
-          </div>
-        </div>
-      </div>
-    `;
-
-    document.getElementById("card-flip").addEventListener("click", () => {
-      document.getElementById("card-flip").classList.toggle("flipped");
-      if (!flipped) {
-        flipped = true;
-        document.getElementById("answer-btns").classList.add("visible");
-      }
-    });
-
-    document.getElementById("btn-got").addEventListener("click", () => {
-      recordMathResult(fact.id, true);
-      sessionCorrect++;
-      index++;
-      renderCard();
-    });
-
-    document.getElementById("btn-missed").addEventListener("click", () => {
-      recordMathResult(fact.id, false);
-      sessionWrong++;
-      index++;
-      renderCard();
-    });
-
-    document.getElementById("btn-exit").addEventListener("click", renderMathPicker);
-  }
-
-  renderCard();
-}
-
-// ── Language card screen ──────────────────────────────────────────────────────
-
-function renderCardScreen(deck, onExit) {
-  let index = 0;
-  let sessionCorrect = 0;
-  let sessionWrong = 0;
-  let flipped = false;
-
-  function renderCard() {
-    if (index >= deck.length) {
-      renderDone(sessionCorrect, sessionWrong, onExit);
+      renderDone(sessionCorrect, sessionWrong, onExit, sessionType, sessionXP);
       return;
     }
 
@@ -516,10 +687,9 @@ function renderCardScreen(deck, onExit) {
     const dirLabel = isEnEs ? "English → Spanish" : "Spanish → English";
     const badgeClass = isEnEs ? "en-es" : "es-en";
     const frontCardClass = isEnEs ? "" : "es-en-front";
-    const backCardClass = isEnEs ? "" : "es-en-back";
+    const backCardClass  = isEnEs ? "" : "es-en-back";
     const pct = Math.round((index / deck.length) * 100);
 
-    // Conjugation table: only show on the Spanish-answer side (en→es)
     const hasConjugations = isEnEs && word.conjugations;
     const conjugationTable = hasConjugations
       ? `<div class="conjugation-table">
@@ -529,17 +699,21 @@ function renderCardScreen(deck, onExit) {
         </div>`
       : "";
 
-    const highlightSentence = s => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
-    const sentenceFront = highlightSentence(isEnEs ? word.sentence_en : word.sentence_es);
-    const sentenceBack  = highlightSentence(isEnEs ? word.sentence_es : word.sentence_en);
+    const hl = s => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    const sentenceFront = hl(isEnEs ? word.sentence_en : word.sentence_es);
+    const sentenceBack  = hl(isEnEs ? word.sentence_es : word.sentence_en);
 
     flipped = false;
+    animating = false;
 
     app.innerHTML = `
       <div class="card-screen">
         <div class="card-header">
           <button class="btn-exit" id="btn-exit">← Home</button>
-          <span class="card-counter">${index + 1} / ${deck.length}</span>
+          <div class="header-center">
+            ${sessionStreak > 0 ? `<span class="streak-badge">🔥 ${sessionStreak}</span>` : ""}
+            <span class="card-counter">${index + 1} / ${deck.length}</span>
+          </div>
           <span class="direction-badge ${badgeClass}">${dirLabel}</span>
         </div>
         <div class="card-area">
@@ -579,6 +753,7 @@ function renderCardScreen(deck, onExit) {
     `;
 
     document.getElementById("card-flip").addEventListener("click", () => {
+      if (animating) return;
       document.getElementById("card-flip").classList.toggle("flipped");
       if (!flipped) {
         flipped = true;
@@ -587,17 +762,57 @@ function renderCardScreen(deck, onExit) {
     });
 
     document.getElementById("btn-got").addEventListener("click", () => {
+      if (!flipped || animating) return;
+      animating = true;
+
+      // Check mastery transition
+      const prevProgress = loadProgress();
+      const [prevC = 0, prevW = 0] = (prevProgress[word.id] || {})[direction] || [];
+      const wasLearning = prevW > prevC;
+
       recordResult(word.id, direction, true);
+
+      const newProgress = loadProgress();
+      const [newC = 0, newW = 0] = (newProgress[word.id] || {})[direction] || [];
+      const justMastered = wasLearning && newC > newW;
+
+      // Streak & XP
+      sessionStreak++;
       sessionCorrect++;
-      index++;
-      renderCard();
+      const isBonus = sessionStreak >= 3;
+      const xpGain = isBonus ? 15 : 10;
+      const xpResult = addXP(xpGain);
+      sessionXP += xpGain;
+
+      // Visuals
+      showXPFloat(xpGain, isBonus);
+      showStreakBanner(sessionStreak);
+      if (justMastered) showMasteryMoment();
+
+      const cardFlip = document.getElementById("card-flip");
+      cardFlip.classList.add(justMastered ? "mastery-flash" : "correct-flash");
+
+      // Badges
+      const newBadges = [];
+      if (sessionCorrect === 1 && awardBadge("first-blood"))   newBadges.push("first-blood");
+      if (sessionStreak === 5 && awardBadge("hot-streak-5"))   newBadges.push("hot-streak-5");
+      if (sessionStreak === 10 && awardBadge("on-fire-10"))    newBadges.push("on-fire-10");
+      newBadges.forEach((b, i) => setTimeout(() => showBadgeToast(b), 300 + i * 800));
+      if (xpResult.leveledUp) setTimeout(() => showLevelUpBanner(xpResult.newLevel), 500);
+
+      setTimeout(() => { index++; renderCard(); }, 400);
     });
 
     document.getElementById("btn-missed").addEventListener("click", () => {
+      if (!flipped || animating) return;
+      animating = true;
+
       recordResult(word.id, direction, false);
       sessionWrong++;
-      index++;
-      renderCard();
+      sessionStreak = 0;
+
+      document.getElementById("card-flip").classList.add("miss-shake");
+      setTimeout(() => { index++; renderCard(); }, 430);
     });
 
     document.getElementById("btn-exit").addEventListener("click", onExit);
@@ -606,14 +821,172 @@ function renderCardScreen(deck, onExit) {
   renderCard();
 }
 
-// ── Done screen ───────────────────────────────────────────────────────────────
+// ── Math card screen ───────────────────────────────────────────────────────────
 
-function renderDone(correct, wrong, onHome) {
+function renderMathCardScreen(deck) {
+  let index = 0;
+  let sessionCorrect = 0;
+  let sessionWrong = 0;
+  let sessionStreak = 0;
+  let sessionXP = 0;
+  let flipped = false;
+  let animating = false;
+
+  function renderCard() {
+    if (index >= deck.length) {
+      renderDone(sessionCorrect, sessionWrong, renderMathPicker, "math", sessionXP);
+      return;
+    }
+
+    const fact = deck[index];
+    const pct = Math.round((index / deck.length) * 100);
+    flipped = false;
+    animating = false;
+
+    app.innerHTML = `
+      <div class="card-screen">
+        <div class="card-header">
+          <button class="btn-exit" id="btn-exit">← Home</button>
+          <div class="header-center">
+            ${sessionStreak > 0 ? `<span class="streak-badge">🔥 ${sessionStreak}</span>` : ""}
+            <span class="card-counter">${index + 1} / ${deck.length}</span>
+          </div>
+          <span class="direction-badge en-es">Multiplication</span>
+        </div>
+        <div class="card-area">
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" style="width:${pct}%"></div>
+          </div>
+          <div class="card-flip-container" id="card-flip">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <span class="word">${fact.a} × ${fact.b}</span>
+                <span class="tap-hint">tap to reveal</span>
+              </div>
+              <div class="card-face card-back math-back">
+                <span class="math-problem">${fact.a} × ${fact.b}</span>
+                <span class="math-answer">${fact.answer}</span>
+              </div>
+            </div>
+          </div>
+          <div class="answer-buttons" id="answer-btns">
+            <button class="btn-missed-it" id="btn-missed">✗ Missed it</button>
+            <button class="btn-got-it" id="btn-got">✓ Got it</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("card-flip").addEventListener("click", () => {
+      if (animating) return;
+      document.getElementById("card-flip").classList.toggle("flipped");
+      if (!flipped) {
+        flipped = true;
+        document.getElementById("answer-btns").classList.add("visible");
+      }
+    });
+
+    document.getElementById("btn-got").addEventListener("click", () => {
+      if (!flipped || animating) return;
+      animating = true;
+
+      // Check mastery transition
+      const prevProgress = loadMathProgress();
+      const [prevC = 0, prevW = 0] = prevProgress[fact.id] || [];
+      const wasLearning = prevW > prevC;
+
+      recordMathResult(fact.id, true);
+
+      const newProgress = loadMathProgress();
+      const [newC = 0, newW = 0] = newProgress[fact.id] || [];
+      const justMastered = wasLearning && newC > newW;
+
+      // Streak & XP
+      sessionStreak++;
+      sessionCorrect++;
+      const isBonus = sessionStreak >= 3;
+      const xpGain = isBonus ? 15 : 10;
+      const xpResult = addXP(xpGain);
+      sessionXP += xpGain;
+
+      // Visuals
+      showXPFloat(xpGain, isBonus);
+      showStreakBanner(sessionStreak);
+      if (justMastered) showMasteryMoment();
+
+      const cardFlip = document.getElementById("card-flip");
+      cardFlip.classList.add(justMastered ? "mastery-flash" : "correct-flash");
+
+      // Badges
+      const newBadges = [];
+      if (sessionCorrect === 1 && awardBadge("first-blood"))   newBadges.push("first-blood");
+      if (sessionStreak === 5 && awardBadge("hot-streak-5"))   newBadges.push("hot-streak-5");
+      if (sessionStreak === 10 && awardBadge("on-fire-10"))    newBadges.push("on-fire-10");
+      newBadges.forEach((b, i) => setTimeout(() => showBadgeToast(b), 300 + i * 800));
+      if (xpResult.leveledUp) setTimeout(() => showLevelUpBanner(xpResult.newLevel), 500);
+
+      setTimeout(() => { index++; renderCard(); }, 400);
+    });
+
+    document.getElementById("btn-missed").addEventListener("click", () => {
+      if (!flipped || animating) return;
+      animating = true;
+
+      recordMathResult(fact.id, false);
+      sessionWrong++;
+      sessionStreak = 0;
+
+      document.getElementById("card-flip").classList.add("miss-shake");
+      setTimeout(() => { index++; renderCard(); }, 430);
+    });
+
+    document.getElementById("btn-exit").addEventListener("click", renderMathPicker);
+  }
+
+  renderCard();
+}
+
+// ── Done screen ────────────────────────────────────────────────────────────────
+
+function renderDone(correct, wrong, onHome, sessionType = "normal", sessionXP = 0) {
+  const total = correct + wrong;
+  const pct   = total === 0 ? 0 : Math.round((correct / total) * 100);
+
+  let message, trophy;
+  if (pct === 100 && total > 0) {
+    message = "PERFECT! You're on fire! 🌋";
+    trophy = "🏆";
+  } else if (pct >= 80) {
+    message = "Excellent session!";
+    trophy = "🎉";
+  } else if (pct >= 50) {
+    message = "Good work, keep it up!";
+    trophy = "👍";
+  } else {
+    message = "Keep practicing, you'll get there!";
+    trophy = "💪";
+  }
+
+  // Mark daily streak
+  markSessionPlayed();
+  const { streak } = getDailyStreak();
+
+  // Check for new badges
+  const newBadges = [];
+  if (wrong === 0 && total > 0 && awardBadge("flawless")) newBadges.push("flawless");
+
+  if (sessionType === "daily") {
+    const today = new Date().toISOString().slice(0, 10);
+    localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify({ date: today, correct, wrong }));
+    if (awardBadge("daily-complete")) newBadges.push("daily-complete");
+  }
+
   app.innerHTML = `
     <div class="done-screen">
-      <div class="trophy">🎉</div>
+      <div class="trophy">${trophy}</div>
       <h2>All done!</h2>
-      <p>Great work!</p>
+      <p>${message}</p>
+      ${streak > 1 ? `<p class="done-streak">🔥 ${streak} day streak!</p>` : ""}
       <div class="done-stats">
         <div class="done-stat good">
           <div class="num">${correct}</div>
@@ -623,14 +996,29 @@ function renderDone(correct, wrong, onHome) {
           <div class="num">${wrong}</div>
           <div class="lbl">Missed</div>
         </div>
+        ${sessionXP > 0 ? `
+        <div class="done-stat xp">
+          <div class="num">+${sessionXP}</div>
+          <div class="lbl">XP</div>
+        </div>` : ""}
       </div>
       <button class="btn-home" id="btn-home">Back to Home</button>
     </div>
   `;
+
   document.getElementById("btn-home").addEventListener("click", onHome);
+
+  // Confetti based on performance
+  if (total > 0) {
+    const intensity = pct === 100 ? 1.5 : pct >= 80 ? 1 : pct >= 50 ? 0.6 : 0.3;
+    setTimeout(() => triggerConfetti(intensity), 150);
+  }
+
+  // Badge toasts after a short delay
+  newBadges.forEach((b, i) => setTimeout(() => showBadgeToast(b), 700 + i * 900));
 }
 
-// ── Boot ─────────────────────────────────────────────────────────────────────
+// ── Boot ───────────────────────────────────────────────────────────────────────
 
 async function init() {
   await loadWords();
