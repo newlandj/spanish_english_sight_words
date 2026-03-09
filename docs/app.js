@@ -3,7 +3,6 @@ const MATH_STORAGE_KEY   = "math_progress";
 const DAILY_STREAK_KEY   = "daily_streak";
 const XP_KEY             = "xp_data";
 const BADGES_KEY         = "badges";
-const DAILY_CHALLENGE_KEY = "daily_challenge";
 const WORDS_URL          = "./words.json";
 
 // XP needed to reach each level (index = level - 1)
@@ -14,7 +13,6 @@ const BADGE_DEFS = {
   "hot-streak-5":  { name: "Hot Streak",       desc: "5 correct in a row",          icon: "🔥" },
   "on-fire-10":    { name: "On Fire",          desc: "10 correct in a row",         icon: "🌋" },
   "flawless":      { name: "Flawless",         desc: "Finish a deck with 0 misses", icon: "⭐" },
-  "daily-complete":{ name: "Daily Challenger", desc: "Complete a daily challenge",  icon: "📅" },
 };
 
 // ── Language data ──────────────────────────────────────────────────────────────
@@ -209,37 +207,6 @@ function buildDeck(mode, direction) {
   return shuffle(cards);
 }
 
-function seededRandom(seed) {
-  let s = seed;
-  return () => {
-    s = (s * 1664525 + 1013904223) & 0xffffffff;
-    return (s >>> 0) / 0x100000000;
-  };
-}
-
-function seededShuffle(arr, seed) {
-  const a = [...arr];
-  const rand = seededRandom(seed);
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function getDailySeed() {
-  const d = new Date();
-  return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
-}
-
-function buildDailyDeck() {
-  const allCards = [];
-  for (const word of words) {
-    allCards.push({ word, direction: "en_es" });
-    allCards.push({ word, direction: "es_en" });
-  }
-  return seededShuffle(allCards, getDailySeed()).slice(0, 10);
-}
 
 // ── Gamification UI helpers ────────────────────────────────────────────────────
 
@@ -308,7 +275,7 @@ function triggerConfetti(intensity = 1) {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   const count = Math.round(90 * intensity);
-  const colors = ["#3b82f6","#22c55e","#f59e0b","#ef4444","#8b5cf6","#ec4899","#06b6d4"];
+  const colors = ["#7C3AED","#0EA5E9","#10B981","#F43F5E","#F97316","#FBBF24","#EC4899"];
   const particles = Array.from({ length: count }, () => ({
     x: Math.random() * canvas.width,
     y: -10 - Math.random() * 150,
@@ -352,11 +319,6 @@ function renderSubjectPicker() {
   const xpData = getXPData();
   const { level, currentXP, rangeXP, pct } = getXPProgress(xpData.xp);
 
-  const dailyCompleted = (() => {
-    try { return JSON.parse(localStorage.getItem(DAILY_CHALLENGE_KEY)); } catch { return null; }
-  })();
-  const dailyDoneToday = dailyCompleted && dailyCompleted.date === today;
-
   app.innerHTML = `
     <div class="home">
       <h1>Flashcards</h1>
@@ -379,15 +341,6 @@ function renderSubjectPicker() {
         </div>
       </div>
 
-      <button class="daily-challenge-btn ${dailyDoneToday ? "done-today" : ""}" id="btn-daily">
-        <span class="daily-challenge-icon">${dailyDoneToday ? "✅" : "📅"}</span>
-        <span class="daily-challenge-text">
-          <span class="daily-challenge-title">${dailyDoneToday ? "Daily Complete!" : "Daily Challenge"}</span>
-          <span class="daily-challenge-sub">${dailyDoneToday ? `${dailyCompleted.correct} correct · ${dailyCompleted.wrong} missed` : "10 cards · today's set"}</span>
-        </span>
-        <span class="daily-challenge-arrow">›</span>
-      </button>
-
       <div class="subject-grid">
         <button class="subject-card" id="btn-language">
           <span class="subject-icon">🌎</span>
@@ -403,48 +356,10 @@ function renderSubjectPicker() {
     </div>
   `;
 
-  document.getElementById("btn-daily").addEventListener("click", renderDailyChallenge);
   document.getElementById("btn-language").addEventListener("click", renderLanguagePicker);
   document.getElementById("btn-math").addEventListener("click", renderMathPicker);
 }
 
-// ── Daily challenge ────────────────────────────────────────────────────────────
-
-function renderDailyChallenge() {
-  const today = new Date().toISOString().slice(0, 10);
-  const completed = (() => {
-    try { return JSON.parse(localStorage.getItem(DAILY_CHALLENGE_KEY)); } catch { return null; }
-  })();
-  const alreadyDone = completed && completed.date === today;
-  const deck = buildDailyDeck();
-
-  app.innerHTML = `
-    <div class="home">
-      <button class="btn-back" id="btn-back">← Back</button>
-      <h1>Daily Challenge</h1>
-      <p class="subtitle">${today}</p>
-
-      ${alreadyDone ? `
-        <div class="daily-done-banner">
-          <span>✅ Already completed today!</span>
-          <span>${completed.correct} correct · ${completed.wrong} missed</span>
-        </div>
-      ` : ""}
-
-      <div class="daily-info">
-        <span class="daily-info-icon">📅</span>
-        <span>10 cards · Same set for everyone today · Seeded by date</span>
-      </div>
-
-      <button class="btn-start" id="btn-start">${alreadyDone ? "Play Again" : "Start Challenge"}</button>
-    </div>
-  `;
-
-  document.getElementById("btn-back").addEventListener("click", renderSubjectPicker);
-  document.getElementById("btn-start").addEventListener("click", () => {
-    renderCardScreen(deck, renderSubjectPicker, "daily");
-  });
-}
 
 // ── Language picker ────────────────────────────────────────────────────────────
 
@@ -975,11 +890,6 @@ function renderDone(correct, wrong, onHome, sessionType = "normal", sessionXP = 
   const newBadges = [];
   if (wrong === 0 && total > 0 && awardBadge("flawless")) newBadges.push("flawless");
 
-  if (sessionType === "daily") {
-    const today = new Date().toISOString().slice(0, 10);
-    localStorage.setItem(DAILY_CHALLENGE_KEY, JSON.stringify({ date: today, correct, wrong }));
-    if (awardBadge("daily-complete")) newBadges.push("daily-complete");
-  }
 
   app.innerHTML = `
     <div class="done-screen">
