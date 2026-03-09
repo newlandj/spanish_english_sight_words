@@ -1,4 +1,4 @@
-const CACHE_NAME = "sightwords-v5";
+const CACHE_NAME = "sightwords-v6";
 const ASSETS = [
   "./",
   "./index.html",
